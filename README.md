@@ -42,9 +42,6 @@ History log:
 * Version 0.0.1:
   - Initial release.
 
-Final Note
-========================
-The application still in its early stage. Please report any issue so I can improve it.
 
 License
 ========================
