@@ -1,0 +1,32 @@
+{
+    "fileExtension": "swift",
+    "defaultSuperClass" : "RLMObject",
+    "dataTypes": {
+        "intType": "Int",
+        "boolType": "Bool",
+        "floatType": "Float",
+        "doubleType": "Double",
+        "longType": "Double",
+        "stringType": "String",
+        "stringTypeQuotedValue" : "\"<!QuotedValue!>\"",
+        "dateType": "NSDate",
+        "dateTypeDefaultValue" : "NSDate()",
+        "dataType": "NSData",
+        "dataTypeDefaultValue" : "NSData()"
+        
+    },
+    "modelDefinition": "\nclass <!EntityName!> : <!ParentName!>",
+    "modelStart": "{\n",
+    "modelEnd": "\n}",
+    "attributeDefination": "\tdynamic var <!AttrName!> : <!AttrType!>\n",
+    "attributeDefinationWithDefaultValue": "\tdynamic var <!AttrName!> : <!AttrType!> = <!AttrDefaultValue!>\n",
+    
+    "toOneRelationshipDefination": "\tdynamic var <!RelationshipName!>: <!RelationshipType!>?\n",
+    "toManyRelationshipDefination": "\tdynamic var <!RelationshipName!> = RLMArray(objectClassName: <!RelationshipType!>.className())\n",
+    
+    "indexedAttributesDefination" : "\n\toverride class func attributesForProperty(propertyName: String) -> RLMPropertyAttributes\n    {\n\t\tvar attrs = super.attributesForProperty(propertyName)\n\t\tvar indexedProperties = [String]()\n<!IndexedPropertiesReplacement!>\n\t\tif find(indexedProperties, propertyName) != nil{\n\t\t\tattrs |= RLMPropertyAttributes.AttributeIndexed\n\t\t}\n\n\t\treturn attrs\n\t}\n",
+    "forEachIndexedAttribute" : "\t\tindexedProperties.append(\"<!AttrName!>\")\n",
+    "ignoredProperties" : "\n\toverride class func ignoredProperties() -> [AnyObject]\n\t{\n\t\treturn [\n<!IgnoredPropertiesReplacement!>\t\t\t]\n\t}\n",
+    "forEachIgnoredProperty" : "\t\t\t\"<!AttrName!>\",\n",
+    "primaryKeyDefination" : "\n\toverride class func primaryKey() -> String\n\t{\n\t\treturn \"<!AttrName!>\"\n\t}\n"
+}

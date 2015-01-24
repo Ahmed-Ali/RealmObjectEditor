@@ -1,0 +1,35 @@
+{
+    "fileExtension": "java",
+    "defaultSuperClass" : "RealmObject",
+    "toManyRelationType" : "RealmList<<!RelationshipType!>>",
+    "indexAnnotaion" : "\t@Index\n",
+    "ignoreAnnotaion" : "\t@Ignore\n",
+    "firstLineStatement" : true,
+    "dataTypes": {
+        "intType": "int",
+        "boolType": "boolean",
+        "floatType": "float",
+        "doubleType": "double",
+        "longType": "ling",
+        "stringType": "String",
+        "stringTypeQuotedValue" : "\"<!QuotedValue!>\"",
+        "dateType": "Date",
+        "dateTypeDefaultValue" : "new Date()",
+        "dataType": "byte[]",
+        "dataTypeDefaultValue" : "new byte[0]"
+        
+    },
+    "staticImports" : "import io.realm.*;\nimport io.realm.annotations.*;\nimport java.util.Date;",
+    "modelDefinition": "\npublic class <!EntityName!> extends <!ParentName!>",
+    "modelStart": "\n{\n",
+    "modelEnd": "\n}",
+    "attributeDefination": "<!Annotations!>\tprivate <!AttrType!> <!AttrName!>;\n",
+    "attributeDefinationWithDefaultValue": "<!Annotations!>\tprivate <!AttrType!> <!AttrName!> = <!AttrDefaultValue!>;\n",
+    
+    "toOneRelationshipDefination": "\tprivate <!RelationshipType!> <!RelationshipName!>;\n",
+    "toManyRelationshipDefination": "\tprivate RealmList<<!RelationshipType!>> <!RelationshipName!>;\n",
+    
+    
+    "setter" : "\n\tpublic void set<!CapitalizedAttrName!>(<!AttrType!> <!AttrName!>){\n\t\tthis.<!AttrName!> = <!AttrName!>;\n\t}\n",
+    "getter" : "\n\tpublic <!AttrType!> get<!CapitalizedAttrName!>(){\n\t\treturn <!AttrName!>;\n\t}\n"
+}

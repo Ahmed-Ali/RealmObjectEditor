@@ -1,0 +1,47 @@
+{
+    "fileExtension": "h",
+    "defaultSuperClass" : "RLMObject",
+    "dataTypes": {
+        "intType": "NSInteger",
+        "intTypeQuotedValue" : "@<!QuotedValue!>",
+        "boolType": "BOOL",
+        "boolTypeQuotedValue" : "@<!QuotedValue!>",
+        "floatType": "CGFloat",
+        "floatTypeQuotedValue" : "@<!QuotedValue!>",
+        "doubleType": "double",
+        "doubleTypeQuotedValue" : "@<!QuotedValue!>",
+        "longType": "double",
+        "longTypeQuotedValue" : "@<!QuotedValue!>",
+        "stringType": "NSString *",
+        "stringTypeQuotedValue" : "@\"<!QuotedValue!>\"",
+        "dateType": "NSDate *",
+        "dateTypeDefaultValue" : "[NSDate date]",
+        "dataType": "NSData *",
+        "dataTypeDefaultValue" : "[NSData data]"
+        
+    },
+    "staticImports" : "\n#import <Realm/Realm.h>\n",
+    "relationsipImports" : "@class <!RelationshipType!>;\n@protocol <!RelationshipType!>;\n",
+    "modelDefinition": "\n@interface <!EntityName!> : <!ParentName!>\n",
+    "modelStart": "\n",
+    "modelEnd": "\n@end\nRLM_ARRAY_TYPE(<!EntityName!>)",
+    "attributeDefination": "@property <!AttrType!> <!AttrName!>;\n",
+    "attributeDefinationWithDefaultValue": "",
+    "toOneRelationshipDefination": "@property <!RelationshipType!> * <!RelationshipName!>;\n",
+    "toManyRelationshipDefination": "@property RLMArray<<!RelationshipType!>> * <!RelationshipName!>;\n",
+    
+    "implementation" : {
+        "fileExtension" : "m",
+        "headerImport" : "#import \"<!EntityName!>.h\"\n",
+        "modelDefinition": "\n@implementation <!EntityName!>\n",
+        "modelStart": "\n",
+        "modelEnd": "\n@end",
+        "indexedAttributesDefination" : "\n+(RLMPropertyAttributes)attributesForProperty:(NSString *)propertyName {\n\tRLMPropertyAttributes attributes = [super attributesForProperty:propertyName];\n\tNSMutableArray * indexedProperties = [NSMutableArray array];\n\t<!IndexedPropertiesReplacement!>\tif ([indexedProperties containsObject:propertyName]) {\n\t\tattributes |= RLMPropertyAttributeIndexed;\n\t}\n\t\treturn attributes;\n}\n",
+        "forEachIndexedAttribute" : "\t[indexedProperties addObject:@\"<!AttrName!>\"];\n",
+        "ignoredProperties" : "\n+(NSArray *)ignoredProperties\n{\n\tNSMutableArray * ignored = [NSMutableArray array];\n<!IgnoredPropertiesReplacement!>\n\treturn ignored;\n}\n",
+        "forEachIgnoredProperty" : "\t[ignored addObject:@\"<!AttrName!>\"];\n",
+        "primaryKeyDefination" : "\n+(NSString *)primaryKey\n{\n\treturn @\"<!AttrName!>\";\n}\n",
+        "defaultValuesDefination" : "\n+(NSDictionary *)defaultPropertyValues\n{\n\tNSMutableDictionary * map = [NSMutableDictionary dictionary];\n<!DefaultValuesReplacement!>\treturn map;\n}\n",
+        "forEachPropertyWithDefaultValue" : "\tmap[@\"<!AttrName!>\"] = <!AttrDefaultValue!>;\n"
+    }
+}
