@@ -46,4 +46,4 @@ History log:
 
 License
 ========================
-JSONExport is available under **MIT** license.
+Realm Object Editor is available under **MIT** license.
