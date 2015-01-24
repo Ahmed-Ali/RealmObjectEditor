@@ -27,6 +27,7 @@ The following screenshots should give you an idea of how the ROE works.
 ![alt tag](https://cloud.githubusercontent.com/assets/5157350/5888257/55f0820c-a400-11e4-97cf-3c43dfaed7cf.png)
 ![alt tag](https://cloud.githubusercontent.com/assets/5157350/5888258/55f51f9c-a400-11e4-8de7-2fbd1f0b5eec.png)
 ![alt tag](https://cloud.githubusercontent.com/assets/5157350/5888259/56060cd0-a400-11e4-9c90-2a3cf4266697.png)
+![alt tag](https://cloud.githubusercontent.com/assets/5157350/5888380/712ddd6c-a405-11e4-8d49-870d8b0ffe4a.png)
 
 Installation
 ========================
