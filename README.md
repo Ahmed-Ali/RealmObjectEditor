@@ -31,7 +31,7 @@ The following screenshots should give you an idea of how the ROE works.
 
 Installation
 ========================
-Kindly clone the project, and build it using xCode 6.1+ on any Mac OS X 10.10 or above.
+Kindly clone the project, and build it using Xcode 6.1+ on any Mac OS X 10.10 or above.
 
 To Do
 ========================
