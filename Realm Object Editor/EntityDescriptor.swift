@@ -25,8 +25,8 @@ class EntityDescriptor: NSObject{
     
     init(dictionary: NSDictionary)
     {
-        name = dictionary["name"] as String
-        superClassName = dictionary["superClassName"] as String
+        name = dictionary["name"] as! String
+        superClassName = dictionary["superClassName"] as! String
         if let attrs = dictionary["attributes"] as? [NSDictionary]{
             for attr in attrs{
                 attributes.append(AttributeDescriptor(dictionary: attr))

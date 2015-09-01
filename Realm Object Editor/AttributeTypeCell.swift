@@ -10,7 +10,7 @@ import Cocoa
 
 protocol AttributeTypeCellDelegate : class
 {
-    func attributeTypeDidChange(attribute: AttributeDescriptor)
+    func attributeTypeDidChange(#attribute: AttributeDescriptor)
 }
 
 class AttributeTypeCell: NSTableCellView {
@@ -36,7 +36,7 @@ class AttributeTypeCell: NSTableCellView {
     @IBAction func changeType(sender: AnyObject)
     {
         attribute.type = arrayOfSupportedTypes[typesPopupButton.indexOfSelectedItem]
-        delegate?.attributeTypeDidChange(attribute)
+        delegate?.attributeTypeDidChange(attribute: attribute)
     }
     
 }

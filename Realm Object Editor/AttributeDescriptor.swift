@@ -26,13 +26,13 @@ class AttributeDescriptor: NSObject {
    
     init(dictionary: NSDictionary)
     {
-        name = dictionary["name"] as String
-        ignored = dictionary["ignored"] as Bool
-        indexed = dictionary["indexed"] as Bool
-        isPrimaryKey = dictionary["isPrimaryKey"] as Bool
-        hasDefault = dictionary["hasDefault"] as Bool
-        defaultValue = dictionary["defaultValue"] as String
-        let tName = dictionary["typeName"] as String
+        name = dictionary["name"] as! String
+        ignored = dictionary["ignored"] as! Bool
+        indexed = dictionary["indexed"] as! Bool
+        isPrimaryKey = dictionary["isPrimaryKey"] as! Bool
+        hasDefault = dictionary["hasDefault"] as! Bool
+        defaultValue = dictionary["defaultValue"] as! String
+        let tName = dictionary["typeName"] as! String
         if let t = findTypeByTypeName(tName){
             type = t
         }

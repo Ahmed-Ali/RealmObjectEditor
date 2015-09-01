@@ -40,7 +40,7 @@ class ImplementationFileContentGenerator: FileContentGenerator {
                 continue
             }
             var defValue = defaultValueForAttribute(attr, types: types)
-            if countElements(attr.defaultValue) == 0{
+            if count(attr.defaultValue) == 0{
                 continue
             }
             
@@ -50,7 +50,7 @@ class ImplementationFileContentGenerator: FileContentGenerator {
             defValues += defValueDefination
         }
         
-        if countElements(defValues) > 0{
+        if count(defValues) > 0{
             var defValuesDef = lang.implementation.defaultValuesDefination
             defValuesDef.replace(DefaultValues, by: defValues)
             content += defValuesDef

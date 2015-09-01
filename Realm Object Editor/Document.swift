@@ -30,8 +30,8 @@ class Document: NSDocument {
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: "Main", bundle: nil)!
-        windowController = storyboard.instantiateControllerWithIdentifier("Editor Window Controller") as NSWindowController
-        if let v = windowController.contentViewController? as? EditorViewController{
+        windowController = storyboard.instantiateControllerWithIdentifier("Editor Window Controller") as! NSWindowController
+        if let v = windowController.contentViewController as? EditorViewController{
             vc = v
             vc.entities = entities
         }

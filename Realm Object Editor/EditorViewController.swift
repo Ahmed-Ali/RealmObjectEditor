@@ -153,7 +153,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         if entity == nil{
             return
         }
-        if countElements(newName) == 0{
+        if count(newName) == 0{
             entityNameField.stringValue = entity.name
             showErrorMessage(NSLocalizedString("EMPTY_ENTITY_NAME", tableName: "ErrorMessages", value:"Entity name cannot be empty", comment: "Displayed when trying to remove entity name"))
             
@@ -470,7 +470,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             return
         }
 
-        if countElements(newName) == 0{
+        if count(newName) == 0{
             showErrorMessage(NSLocalizedString("EMPTY_ATTR_NAME", tableName: "ErrorMessages", value:"Attribute name can not be empty", comment:"Displayed when user tries to remove an attribute name"))
             
             return
@@ -645,7 +645,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     //MARK: - Entity cells handling
     func entityCellAtRow(row: Int) -> NSView
     {
-        let cell = entitiesTable.makeViewWithIdentifier("entityCell", owner: self) as EntityCell
+        let cell = entitiesTable.makeViewWithIdentifier("entityCell", owner: self) as! EntityCell
         cell.entity = entities[row]
         cell.delegate = self
         return cell
@@ -656,19 +656,19 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     {
         let attribute = selectedEntity.attributes[row]
         if column?.identifier == "name"{
-            let cell = attributesTable.makeViewWithIdentifier("name", owner: self) as AttributeNameCell
+            let cell = attributesTable.makeViewWithIdentifier("name", owner: self) as! AttributeNameCell
             cell.attribute = attribute
             cell.delegate = self
             return cell
         }else{
-            let cell = attributesTable.makeViewWithIdentifier("type", owner: self) as AttributeTypeCell
+            let cell = attributesTable.makeViewWithIdentifier("type", owner: self) as! AttributeTypeCell
             cell.attribute = attribute
             cell.delegate = self
             return cell
         }
     }
     //MARK: - AttributeTypeCellDelegate
-    func attributeTypeDidChange(attribute: AttributeDescriptor)
+    func attributeTypeDidChange(#attribute: AttributeDescriptor)
     {
         attributesTable.reloadData()
         populateAttributeUI()
@@ -681,12 +681,12 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     {
         let relationship = selectedEntity.relationships[row]
         if column?.identifier == "name"{
-            let cell = relationshipsTable.makeViewWithIdentifier("name", owner: self) as RelationshipNameCell
+            let cell = relationshipsTable.makeViewWithIdentifier("name", owner: self) as! RelationshipNameCell
             cell.relationship = relationship
             cell.delegate = self
             return cell
         }else{
-            let cell = relationshipsTable.makeViewWithIdentifier("destination", owner: self) as RelationshipDestinationCell
+            let cell = relationshipsTable.makeViewWithIdentifier("destination", owner: self) as! RelationshipDestinationCell
             cell.allEntities = entities
             cell.relationship = relationship
             cell.delegate = self
@@ -721,7 +721,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     
     //MARK: - NSTableViewDelegate
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView
+    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView?
     {
         if tableView == entitiesTable{
             return entityCellAtRow(row)
@@ -857,7 +857,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         //        let fileName = "\(langName).json"
         let filePathUrl = NSBundle.mainBundle().URLForResource(langName, withExtension: "json")!
         let data = NSData(contentsOfURL: filePathUrl)
-        let jsonObject = NSJSONSerialization.JSONObjectWithData(data!, options: .allZeros, error: nil)! as NSDictionary
+        let jsonObject = NSJSONSerialization.JSONObjectWithData(data!, options: .allZeros, error: nil)! as! NSDictionary
         let lang = LangModel(fromDictionary: jsonObject)
         return lang
     }

@@ -40,7 +40,7 @@ extension String{
     func toSingular() -> String
     {
         var singular = self
-        let length = countElements(self)
+        let length = count(self)
         if length > 3{
             let range = Range(start: advance(endIndex, -3), end: endIndex)
             let lastThreeChars = self.substringWithRange(range)

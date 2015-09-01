@@ -30,7 +30,7 @@ class FileContentGenerator {
         content += lang.modelDefinition
         content += lang.modelStart
         content.replace(EntityName, by: entity.name)
-        if countElements(entity.superClassName) == 0{
+        if count(entity.superClassName) == 0{
             content.replace(ParentName, by: lang.defaultSuperClass)
         }else{
             content.replace(ParentName, by: entity.superClassName)
@@ -100,7 +100,7 @@ class FileContentGenerator {
             }
         }
         
-        if countElements(ignoredAttrs) > 0{
+        if count(ignoredAttrs) > 0{
             var ignoredAttrDef = ignoredPropertiesDef
             ignoredAttrDef.replace(IgnoredAttributes, by: ignoredAttrs)
             content += ignoredAttrDef
@@ -136,7 +136,7 @@ class FileContentGenerator {
             }
         }
         
-        if countElements(indexedAttrs) > 0{
+        if count(indexedAttrs) > 0{
             var indexedAttrDef = indexAttributesDefination
             indexedAttrDef.replace(IndexedAttributes, by: indexedAttrs)
             content += indexedAttrDef
@@ -168,7 +168,7 @@ class FileContentGenerator {
         for attr in entity.attributes{
             
             var attrDefination = ""
-            if lang.attributeDefinationWithDefaultValue != nil && countElements(lang.attributeDefinationWithDefaultValue) > 0 && attr.hasDefault{
+            if lang.attributeDefinationWithDefaultValue != nil && count(lang.attributeDefinationWithDefaultValue) > 0 && attr.hasDefault{
                 attrDefination = lang.attributeDefinationWithDefaultValue
                 
                 var defValue = defaultValueForAttribute(attr, types: types)
@@ -247,9 +247,9 @@ class FileContentGenerator {
         content += "//\n//\t\(fileName).\(fileExtension)\n"
         if let me = ABAddressBook.sharedAddressBook()?.me(){
             
-            if let firstName = me.valueForProperty(kABFirstNameProperty as String)? as? String{
+            if let firstName = me.valueForProperty(kABFirstNameProperty as String) as? String{
                 content += "//\n//\tCreate by \(firstName)"
-                if let lastName = me.valueForProperty(kABLastNameProperty as String)? as? String{
+                if let lastName = me.valueForProperty(kABLastNameProperty as String) as? String{
                     content += " \(lastName)"
                 }
             }
@@ -257,7 +257,7 @@ class FileContentGenerator {
             
             content += " on \(getTodayFormattedDay())\n//\tCopyright © \(getYear())"
             
-            if let organization = me.valueForProperty(kABOrganizationProperty as String)? as? String{
+            if let organization = me.valueForProperty(kABOrganizationProperty as String) as? String{
                 content += " \(organization)"
             }
             

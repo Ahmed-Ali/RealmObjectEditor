@@ -45,7 +45,7 @@ class ClickableCell: NSTableCellView, NSTextFieldDelegate{
     {
         editableLabel.editable = false
         window?.resignFirstResponder()
-        if prevName != editableLabel.stringValue && countElements(prevName) > 0{
+        if prevName != editableLabel.stringValue && count(prevName) > 0{
             nameDidChange(editableLabel.stringValue)
         }
     }
@@ -69,7 +69,7 @@ class ClickableCell: NSTableCellView, NSTextFieldDelegate{
             endEditing()
             return true
         }
-        if countElements(editableLabel.stringValue) == 0{
+        if count(editableLabel.stringValue) == 0{
             showEmptyNameError()
             return false
         }

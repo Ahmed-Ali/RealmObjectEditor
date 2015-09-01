@@ -17,8 +17,8 @@ class RelationshipDescriptor : NSObject{
     
     init(dictionary: NSDictionary)
     {
-        name = dictionary["name"] as String
-        toMany = dictionary["toMany"] as Bool
+        name = dictionary["name"] as! String
+        toMany = dictionary["toMany"] as! Bool
         destinationName = dictionary["destinationName"] as? String
         super.init()
     }
