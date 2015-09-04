@@ -25,6 +25,7 @@ class LangModel : NSObject{
 	var indexedAttributesDefination : String!
     var indexAnnotaion: String!
 	var modelDefinition : String!
+    var modelDefineInConstructor: Bool!
 	var modelEnd : String!
 	var modelStart : String!
 	var primaryKeyDefination : String!
@@ -59,6 +60,7 @@ class LangModel : NSObject{
 		}
 		indexedAttributesDefination = dictionary["indexedAttributesDefination"] as? String
         indexAnnotaion = dictionary["indexAnnotaion"] as? String
+        modelDefineInConstructor = dictionary["modelDefineInConstructor"] as? Bool
 		modelDefinition = dictionary["modelDefinition"] as? String
 		modelEnd = dictionary["modelEnd"] as? String
 		modelStart = dictionary["modelStart"] as? String

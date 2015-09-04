@@ -146,7 +146,7 @@ class FileContentGenerator {
     //MARK: - Relationships
     func appendRelationships()
     {
-        for relationship in entity.relationships{
+        for (index, relationship) in enumerate(entity.relationships){
             var relationshipDef = ""
             if relationship.toMany{
                 relationshipDef = lang.toManyRelationshipDefination
@@ -156,6 +156,11 @@ class FileContentGenerator {
             
             relationshipDef.replace(RelationshipName, by: relationship.name)
             relationshipDef.replace(RelationshipType, by: relationship.destinationName)
+            
+            if lang.modelDefineInConstructor != nil{
+                relationshipDef.replace(Seperator, by: getSeperator(index, total: entity.relationships.count))
+            }
+            
             content += relationshipDef
         }
         
@@ -165,7 +170,7 @@ class FileContentGenerator {
     func appendAttributes()
     {
         let types = lang.dataTypes.toDictionary()
-        for attr in entity.attributes{
+        for (index, attr) in enumerate(entity.attributes){
             
             var attrDefination = ""
             if lang.attributeDefinationWithDefaultValue != nil && count(lang.attributeDefinationWithDefaultValue) > 0 && attr.hasDefault{
@@ -198,9 +203,21 @@ class FileContentGenerator {
             }
             
             attrDefination.replace(Annotations, by: annotations)
+            
+            if lang.modelDefineInConstructor != nil{
+                let totalItems = entity.attributes.count + entity.relationships.count
+                attrDefination.replace(Seperator, by: getSeperator(index, total: totalItems))
+            }
+
             content += attrDefination
         }
     }
+    
+    func getSeperator(index: Int, total: Int) -> String
+    {
+        return (index < total - 1) ? "," : ""
+    }
+    
     
     func defaultValueForAttribute(attribute: AttributeDescriptor, types: [String : String]) -> String
     {
