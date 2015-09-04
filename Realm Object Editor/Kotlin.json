@@ -1,0 +1,32 @@
+{
+    "fileExtension": "kt",
+    "defaultSuperClass" : "RealmObject",
+    "toManyRelationType" : "RealmList<<!RelationshipType!>>",
+    "indexAnnotaion" : "\t@Index\n",
+    "ignoreAnnotaion" : "\t@Ignore\n",
+    "firstLineStatement" : true,
+    "dataTypes": {
+        "intType": "Int",
+        "boolType": "Boolean",
+        "floatType": "Float",
+        "doubleType": "Double",
+        "longType": "Long",
+        "stringType": "String",
+        "stringTypeQuotedValue" : "\"<!QuotedValue!>\"",
+        "dateType": "Date",
+        "dateTypeDefaultValue" : "Date()",
+        "dataType": "Array<Byte>",
+        "dataTypeDefaultValue" : "byteArrayOf()"
+        
+    },
+    "staticImports" : "import io.realm.*;\nimport io.realm.annotations.*;\nimport java.util.Date;",
+    "modelDefinition": "\nopen class <!EntityName!>",
+    "modelStart": "(\n",
+    "modelEnd": "\n) : <!ParentName!>()",
+    "attributeDefination": "<!Annotations!>\nopen var <!AttrName!>: <!AttrType!>,\n",
+    "attributeDefinationWithDefaultValue": "<!Annotations!>\nopen var <!AttrName!>: <!AttrType!> = <!AttrDefaultValue!>,\n",
+    
+    "toOneRelationshipDefination": "\topen var <!RelationshipName!>: <!RelationshipType!>? = null,\n",
+    "toManyRelationshipDefination": "\topen var <!RelationshipName!>: RealmList<<!RelationshipType!>> = RealmList(),\n",
+    
+}

@@ -37,6 +37,7 @@
 		60E9638A1A68540C006C4BFF /* AttributeNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E963891A68540C006C4BFF /* AttributeNameCell.swift */; };
 		60E9638E1A6855E9006C4BFF /* AttributeTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E9638D1A6855E9006C4BFF /* AttributeTypeCell.swift */; };
 		60E963901A686569006C4BFF /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E9638F1A686569006C4BFF /* StringExtension.swift */; };
+		F162BCD41B999CF700EA1199 /* Kotlin.json in Resources */ = {isa = PBXBuildFile; fileRef = F162BCD31B999CF700EA1199 /* Kotlin.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		60E963891A68540C006C4BFF /* AttributeNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeNameCell.swift; sourceTree = "<group>"; };
 		60E9638D1A6855E9006C4BFF /* AttributeTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributeTypeCell.swift; sourceTree = "<group>"; };
 		60E9638F1A686569006C4BFF /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		F162BCD31B999CF700EA1199 /* Kotlin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Kotlin.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				60D819FD1A6E0C130064B933 /* Swift.json */,
 				60D819FB1A6E0C130064B933 /* Java.json */,
 				60D819FC1A6E0C130064B933 /* ObjC.json */,
+				F162BCD31B999CF700EA1199 /* Kotlin.json */,
 			);
 			name = "Supported Grammars";
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				60BE92F91A4CE0EC00019B4F /* Main.storyboard in Resources */,
 				60D819FE1A6E0C130064B933 /* Java.json in Resources */,
 				60143F5A1A736B4300E21AB4 /* AppIcon.icns in Resources */,
+				F162BCD41B999CF700EA1199 /* Kotlin.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

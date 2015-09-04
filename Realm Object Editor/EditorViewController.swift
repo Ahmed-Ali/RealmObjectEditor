@@ -830,7 +830,6 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func exportToSwift(sender: AnyObject!)
     {
         tryToExportWithLangName("Swift")
-        
     }
     
     func exportToObjectiveC(sender: AnyObject!)
@@ -841,6 +840,11 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func exportToAndroidJava(sender: AnyObject!)
     {
         tryToExportWithLangName("Java")
+    }
+    
+    func exportToAndroidKotlin(sender: AnyObject!)
+    {
+        tryToExportWithLangName("Kotlin")
     }
     
     func tryToExportWithLangName(langName: String)
