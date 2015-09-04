@@ -318,7 +318,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             attributeDefaultCheckbox.state = NSOffState
             attributeDefaultCheckbox.enabled = false
         }else{
-            attributeDefaultValueField.stringValue = selectedAttribute.hasDefault ? "\(selectedAttribute.type.defaultValue)" : ""
+            attributeDefaultValueField.stringValue = selectedAttribute.hasDefault ? "\(selectedAttribute.defaultValue)" : ""
             attributeDefaultValueField.enabled = true
             attributeDefaultCheckbox.enabled = true
         }
