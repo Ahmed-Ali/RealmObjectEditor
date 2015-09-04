@@ -41,6 +41,13 @@ To Do
 
 History log:
 ========================
+* Version 0.0.3
+  - Fixed issue #3 which causes default values to disappear.
+  - Merged PR #6 to add support for Kotlin language.
+  
+* Version 0.0.2
+  - Minor fixes including Swift 1.2 compatability.
+
 * Version 0.0.1:
   - Initial release.
 
