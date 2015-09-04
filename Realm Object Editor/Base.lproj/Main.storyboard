@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -102,6 +102,12 @@
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="exportToAndroidJava:" target="Ady-hI-5gd" id="PuU-o7-N7a"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Kotlin" id="EH4-4l-ijq">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="exportToAndroidKotlin:" target="Ady-hI-5gd" id="RtX-o5-1Ja"/>
                                                         </connections>
                                                     </menuItem>
                                                 </items>
@@ -719,6 +725,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="18" viewBased="YES" id="Rs7-sA-msV" customClass="ClickableTableView" customModule="Realm_Object_Editor" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="0.0" height="5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -934,11 +941,12 @@
                                                     </customView>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="23" horizontalPageScroll="10" verticalLineScroll="23" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeG-LT-lqc">
                                                         <rect key="frame" x="0.0" y="30" width="418" height="170"/>
-                                                        <clipView key="contentView" misplaced="YES" id="zDn-JH-zJN">
+                                                        <clipView key="contentView" id="zDn-JH-zJN">
                                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="21" rowSizeStyle="automatic" headerView="KEm-Ui-7Bp" viewBased="YES" id="dva-AU-H5u" customClass="ClickableTableView" customModule="Realm_Object_Editor" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="418" height="0.0"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1169,11 +1177,12 @@
                                                     </customView>
                                                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6rR-mB-B0f">
                                                         <rect key="frame" x="0.0" y="30" width="418" height="170"/>
-                                                        <clipView key="contentView" misplaced="YES" id="NBs-nv-aC1">
+                                                        <clipView key="contentView" id="NBs-nv-aC1">
                                                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="kaA-If-1Xj" viewBased="YES" id="cmB-rB-J0p" customClass="ClickableTableView" customModule="Realm_Object_Editor" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="418" height="0.0"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
