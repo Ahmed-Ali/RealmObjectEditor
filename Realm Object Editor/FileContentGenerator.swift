@@ -122,6 +122,7 @@ class FileContentGenerator {
         }
     }
     
+    
     //MARK: - Index Attributes
     func appendIndexedAttributes(indexAttributesDefination: String, forEachIndexedAttribute: String)
     {
@@ -188,6 +189,11 @@ class FileContentGenerator {
             attrDefination.replace(AttrType, by: types[attr.type.techName]!)
             var annotations = ""
             
+            if attr.isPrimaryKey{
+                if lang.primaryKeyAnnotation != nil{
+                    annotations += lang.primaryKeyAnnotation
+                }
+            }
             
             if attr.indexed{
                 if lang.indexAnnotaion != nil{
