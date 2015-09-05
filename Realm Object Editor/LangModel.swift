@@ -18,6 +18,7 @@ class LangModel : NSObject{
     var firstLineStatement : Bool!
 	var forEachIgnoredProperty : String!
 	var forEachIndexedAttribute : String!
+    var primaryKeyAnnotation: String!
     var getter : String!
 	var ignoredProperties : String!
     var ignoreAnnotaion : String!
@@ -52,6 +53,7 @@ class LangModel : NSObject{
 		forEachIgnoredProperty = dictionary["forEachIgnoredProperty"] as? String
 		forEachIndexedAttribute = dictionary["forEachIndexedAttribute"] as? String
         getter = dictionary["getter"] as? String
+        primaryKeyAnnotation = dictionary["primaryKeyAnnotation"] as? String
         ignoreAnnotaion = dictionary["ignoreAnnotaion"] as? String
 		ignoredProperties = dictionary["ignoredProperties"] as? String
         

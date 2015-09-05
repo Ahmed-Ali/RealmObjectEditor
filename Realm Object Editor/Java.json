@@ -4,6 +4,7 @@
     "toManyRelationType" : "RealmList<<!RelationshipType!>>",
     "indexAnnotaion" : "\t@Index\n",
     "ignoreAnnotaion" : "\t@Ignore\n",
+    "primaryKeyAnnotation" : "\t@PrimaryKey\n",
     "firstLineStatement" : true,
     "dataTypes": {
         "intType": "int",
