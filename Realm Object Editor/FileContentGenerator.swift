@@ -30,7 +30,7 @@ class FileContentGenerator {
         content += lang.modelDefinition
         content += lang.modelStart
         content.replace(EntityName, by: entity.name)
-        if count(entity.superClassName) == 0{
+        if entity.superClassName.characters.count == 0{
             content.replace(ParentName, by: lang.defaultSuperClass)
         }else{
             content.replace(ParentName, by: entity.superClassName)
@@ -100,7 +100,7 @@ class FileContentGenerator {
             }
         }
         
-        if count(ignoredAttrs) > 0{
+        if ignoredAttrs.characters.count > 0{
             var ignoredAttrDef = ignoredPropertiesDef
             ignoredAttrDef.replace(IgnoredAttributes, by: ignoredAttrs)
             content += ignoredAttrDef
@@ -137,7 +137,7 @@ class FileContentGenerator {
             }
         }
         
-        if count(indexedAttrs) > 0{
+        if indexedAttrs.characters.count > 0{
             var indexedAttrDef = indexAttributesDefination
             indexedAttrDef.replace(IndexedAttributes, by: indexedAttrs)
             content += indexedAttrDef
@@ -147,7 +147,7 @@ class FileContentGenerator {
     //MARK: - Relationships
     func appendRelationships()
     {
-        for (index, relationship) in enumerate(entity.relationships){
+        for (index, relationship) in entity.relationships.enumerate(){
             var relationshipDef = ""
             if relationship.toMany{
                 relationshipDef = lang.toManyRelationshipDefination
@@ -171,13 +171,13 @@ class FileContentGenerator {
     func appendAttributes()
     {
         let types = lang.dataTypes.toDictionary()
-        for (index, attr) in enumerate(entity.attributes){
+        for (index, attr) in entity.attributes.enumerate(){
             
             var attrDefination = ""
-            if lang.attributeDefinationWithDefaultValue != nil && count(lang.attributeDefinationWithDefaultValue) > 0 && attr.hasDefault{
+            if lang.attributeDefinationWithDefaultValue != nil && lang.attributeDefinationWithDefaultValue.characters.count > 0 && attr.hasDefault{
                 attrDefination = lang.attributeDefinationWithDefaultValue
                 
-                var defValue = defaultValueForAttribute(attr, types: types)
+                let defValue = defaultValueForAttribute(attr, types: types)
                 
                 attrDefination.replace(AttrDefaultValue, by: defValue)
                 
@@ -296,7 +296,7 @@ class FileContentGenerator {
     */
     func getYear() -> String
     {
-        return "\(NSCalendar.currentCalendar().component(.CalendarUnitYear, fromDate: NSDate()))"
+        return "\(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()))"
     }
     
     /**
@@ -304,7 +304,7 @@ class FileContentGenerator {
     */
     func getTodayFormattedDay() -> String
     {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitDay | .CalendarUnitMonth | .CalendarUnitYear, fromDate: NSDate())
+        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: NSDate())
         return "\(components.day)/\(components.month)/\(components.year)"
     }
 }

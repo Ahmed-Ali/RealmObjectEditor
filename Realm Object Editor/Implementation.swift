@@ -47,7 +47,7 @@ class Implementation : NSObject{
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if defaultValuesDefination != nil{
 			dictionary["defaultValuesDefination"] = defaultValuesDefination
 		}

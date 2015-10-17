@@ -117,7 +117,7 @@ class ColorableView: NSView {
         if rightSeperatorWidth > 0{
             drawRightSep(dirtyRect)
         }
-        layer?.edgeAntialiasingMask = .LayerBottomEdge | .LayerTopEdge | .LayerLeftEdge | .LayerRightEdge
+        layer?.edgeAntialiasingMask = [.LayerBottomEdge, .LayerTopEdge, .LayerLeftEdge, .LayerRightEdge]
         layer?.borderColor = borderColor.CGColor
         layer?.cornerRadius = cornerRadius
         layer?.borderWidth = borderWidth

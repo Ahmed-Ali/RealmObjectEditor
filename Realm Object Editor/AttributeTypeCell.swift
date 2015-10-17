@@ -10,7 +10,7 @@ import Cocoa
 
 protocol AttributeTypeCellDelegate : class
 {
-    func attributeTypeDidChange(#attribute: AttributeDescriptor)
+    func attributeTypeDidChange(attribute attribute: AttributeDescriptor)
 }
 
 class AttributeTypeCell: NSTableCellView {

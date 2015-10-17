@@ -34,13 +34,13 @@ class ImplementationFileContentGenerator: FileContentGenerator {
     func appendDefaultValues()
     {
         var defValues = ""
-        var types = lang.dataTypes.toDictionary()
+        let types = lang.dataTypes.toDictionary()
         for attr in entity.attributes{
             if !attr.hasDefault{
                 continue
             }
-            var defValue = defaultValueForAttribute(attr, types: types)
-            if count(attr.defaultValue) == 0{
+            let defValue = defaultValueForAttribute(attr, types: types)
+            if attr.defaultValue.characters.count == 0{
                 continue
             }
             
@@ -50,7 +50,7 @@ class ImplementationFileContentGenerator: FileContentGenerator {
             defValues += defValueDefination
         }
         
-        if count(defValues) > 0{
+        if defValues.characters.count > 0{
             var defValuesDef = lang.implementation.defaultValuesDefination
             defValuesDef.replace(DefaultValues, by: defValues)
             content += defValuesDef

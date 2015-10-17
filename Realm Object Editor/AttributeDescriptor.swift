@@ -47,7 +47,7 @@ class AttributeDescriptor: NSObject {
     
     func toDictionary() -> NSDictionary
     {
-        var dictionary = ["name" : name,
+        let dictionary = ["name" : name,
             "ignored" : ignored,
             "indexed" : indexed,
             "isPrimaryKey" : isPrimaryKey,

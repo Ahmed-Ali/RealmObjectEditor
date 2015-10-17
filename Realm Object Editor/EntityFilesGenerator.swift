@@ -48,7 +48,6 @@ class EntityFilesGenerator {
     
     func fileContentForEntity(entity: EntityDescriptor, lang: LangModel) -> String
     {
-        var contentGenerator = FileContentGenerator(entity: entity, lang: lang)
         
         return FileContentGenerator(entity: entity, lang: lang).getFielContent()
     }
