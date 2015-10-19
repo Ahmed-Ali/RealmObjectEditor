@@ -41,6 +41,9 @@ To Do
 
 History log:
 ========================
+* Version 0.0.4
+  - Merged PR #8 for Swift 2.0 and Xcode 7 support.
+  
 * Version 0.0.3
   - Fixed issue #3 which causes default values to disappear.
   - Merged PR #6 to add support for Kotlin language.
