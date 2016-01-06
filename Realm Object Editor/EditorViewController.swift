@@ -112,8 +112,10 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         
         entityNameField.stringValue = selectedEntity.name
         entityParentClassField.stringValue = selectedEntity.superClassName
+
+        let sView = entityOptionsContainer.superview
+        sView?.addSubview(entityOptionsContainer)
         entityOptionsContainer.hidden = false
-        
     }
     
     
@@ -186,7 +188,10 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func selectedRelationshipDidChange()
     {
         if selectedRelationship != nil{
+            let sView = relationshipOptionsContainer.superview
+            sView?.addSubview(relationshipOptionsContainer)
             relationshipOptionsContainer.hidden = false
+
             //Fill option with the selected relationship data
             populateRelationshipUI()
         }
@@ -291,7 +296,10 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func selectedAttributeDidChange()
     {
         if selectedAttribute != nil{
+            let sView = attributeOptionsContainer.superview
+            sView?.addSubview(attributeOptionsContainer)
             attributeOptionsContainer.hidden = false
+
             //Fill option with the selected attribute data
             populateAttributeUI()
             
