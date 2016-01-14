@@ -506,6 +506,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         entities.append(entity)
         entitiesTable.reloadData()
         relationshipsTable.reloadData()
+        entitiesTable.scrollToEndOfDocument(nil)
     }
     
     
@@ -554,6 +555,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         
         selectedEntity.attributes.append(attribute)
         attributesTable.reloadData()
+        attributesTable.scrollToEndOfDocument(nil)
     }
     
     
@@ -591,6 +593,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         let relationship = RelationshipDescriptor(name:relationshipName)
         selectedEntity.relationships.append(relationship)
         relationshipsTable.reloadData()
+        relationshipsTable.scrollToEndOfDocument(nil)
     }
     
     
