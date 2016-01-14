@@ -102,6 +102,10 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     //MARK: - Entities
     func selectedEntityDidChange()
     {
+        for view in optionContainers {
+            view.hidden = true
+        }
+        
         attributesTable.reloadData()
         relationshipsTable.reloadData()
         selectedAttribute = nil
@@ -186,6 +190,10 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func selectedRelationshipDidChange()
     {
         if selectedRelationship != nil{
+            for view in optionContainers {
+                view.hidden = true
+            }
+            
             relationshipOptionsContainer.hidden = false
             //Fill option with the selected relationship data
             populateRelationshipUI()
@@ -290,6 +298,10 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     //MARK: - Attributes
     func selectedAttributeDidChange()
     {
+        for view in optionContainers {
+            view.hidden = true
+        }
+        
         if selectedAttribute != nil{
             attributeOptionsContainer.hidden = false
             //Fill option with the selected attribute data
