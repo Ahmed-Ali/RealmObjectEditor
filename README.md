@@ -41,6 +41,10 @@ To Do
 
 History log:
 ========================
+* Version 0.0.5
+	- Fixed issue #15
+	- Merged pull requests #12, #13 and #14
+
 * Version 0.0.4
   - Merged PR #8 for Swift 2.0 and Xcode 7 support.
   

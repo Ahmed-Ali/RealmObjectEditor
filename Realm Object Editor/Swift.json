@@ -1,6 +1,6 @@
 {
     "fileExtension": "swift",
-    "defaultSuperClass" : "RLMObject",
+    "defaultSuperClass" : "Object",
     "dataTypes": {
         "intType": "Int",
         "boolType": "Bool",
