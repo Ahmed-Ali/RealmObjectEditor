@@ -36,8 +36,8 @@ let arrayOfSupportedTypes : [TypeDescriptor] = [InvalidType(),
     DoubleType(),
     StringType(),
     DateType(),
-    BinaryDataType()]
-
+    BinaryDataType(),
+    BoolType()]
 
 func indexOfType(type : TypeDescriptor) -> Int?
 {
