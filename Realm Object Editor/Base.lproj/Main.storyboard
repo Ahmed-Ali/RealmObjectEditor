@@ -1242,7 +1242,7 @@
                                                                                     <rect key="frame" x="1" y="1" width="115.73468262651792" height="17"/>
                                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                     <subviews>
-                                                                                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXg-OD-oEi" customClass="ColorableView" customModule="Realm_Object_Editor" customModuleProvider="target">
+                                                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="QXg-OD-oEi" customClass="ColorableView" customModule="Realm_Object_Editor" customModuleProvider="target">
                                                                                             <rect key="frame" x="4" y="2" width="13" height="13"/>
                                                                                             <subviews>
                                                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wom-yg-0m4">
@@ -1285,7 +1285,7 @@
                                                                                     </subviews>
                                                                                     <constraints>
                                                                                         <constraint firstItem="N9A-lq-9Mx" firstAttribute="leading" secondItem="QXg-OD-oEi" secondAttribute="trailing" constant="4" id="5h6-bW-5u3"/>
-                                                                                        <constraint firstItem="QXg-OD-oEi" firstAttribute="leading" secondItem="iE4-vt-uxy" secondAttribute="leading" id="5uA-tJ-y5A"/>
+                                                                                        <constraint firstItem="QXg-OD-oEi" firstAttribute="leading" secondItem="iE4-vt-uxy" secondAttribute="leading" constant="4" id="5uA-tJ-y5A"/>
                                                                                         <constraint firstAttribute="bottom" secondItem="QXg-OD-oEi" secondAttribute="bottom" constant="2" id="JKn-CJ-8S8"/>
                                                                                         <constraint firstAttribute="trailing" secondItem="N9A-lq-9Mx" secondAttribute="trailing" constant="4" id="Ln9-ar-bg7"/>
                                                                                         <constraint firstAttribute="centerY" secondItem="N9A-lq-9Mx" secondAttribute="centerY" id="XaT-tL-zoP"/>
