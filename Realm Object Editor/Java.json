@@ -11,7 +11,7 @@
         "boolType": "boolean",
         "floatType": "float",
         "doubleType": "double",
-        "longType": "ling",
+        "longType": "long",
         "stringType": "String",
         "stringTypeQuotedValue" : "\"<!QuotedValue!>\"",
         "dateType": "Date",
