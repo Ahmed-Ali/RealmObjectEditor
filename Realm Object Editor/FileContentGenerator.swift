@@ -22,9 +22,10 @@ class FileContentGenerator {
     }
     
     
-    func getFielContent() -> String
+    func getFileContent() -> String
     {
         appendCopyrights(entity.name, fileExtension: lang.fileExtension)
+        appendPackageName()
         appendStaticImports()
         appendRelationshipImports()
         content += lang.modelDefinition
@@ -289,7 +290,15 @@ class FileContentGenerator {
         
         content += "//\tModel file Generated using Realm Object Editor: https://github.com/Ahmed-Ali/RealmObjectEditor\n\n"
     }
-    
+
+
+    //MARK: - Package Name
+    func appendPackageName() {
+        if var package = lang.package {
+            package.replace(Package, by: entity.packageName!)
+            content += package
+        }
+    }
     
     /**
     Returns the current year as String

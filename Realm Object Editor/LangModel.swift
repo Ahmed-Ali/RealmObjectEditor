@@ -36,6 +36,7 @@ class LangModel : NSObject{
 	var toManyRelationshipDefination : String!
     var toManyRelationType : String!
 	var toOneRelationshipDefination : String!
+    var package: String!
 
 
 	/**
@@ -74,6 +75,7 @@ class LangModel : NSObject{
 		toManyRelationshipDefination = dictionary["toManyRelationshipDefination"] as? String
         toManyRelationType = dictionary["toManyRelationType"] as? String
 		toOneRelationshipDefination = dictionary["toOneRelationshipDefination"] as? String
+        package = dictionary["package"] as? String
         
 	}
 

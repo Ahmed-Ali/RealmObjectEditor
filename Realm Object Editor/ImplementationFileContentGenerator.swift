@@ -10,7 +10,7 @@
 class ImplementationFileContentGenerator: FileContentGenerator {
     
     
-    override func getFielContent() -> String
+    override func getFileContent() -> String
     {
         appendCopyrights(entity.name, fileExtension: lang.implementation.fileExtension)
         content += lang.implementation.headerImport

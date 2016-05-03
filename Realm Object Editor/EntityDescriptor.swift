@@ -14,7 +14,7 @@ class EntityDescriptor: NSObject{
     var superClassName = ""
     var attributes = [AttributeDescriptor]()
     var relationships = [RelationshipDescriptor]()
-    
+    var packageName: String?
     
     
     init(name: String)
