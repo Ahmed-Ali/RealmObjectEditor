@@ -11,7 +11,7 @@
         "boolType": "boolean",
         "floatType": "float",
         "doubleType": "double",
-        "longType": "ling",
+        "longType": "long",
         "stringType": "String",
         "stringTypeQuotedValue" : "\"<!QuotedValue!>\"",
         "dateType": "Date",
@@ -20,8 +20,9 @@
         "dataTypeDefaultValue" : "new byte[0]"
         
     },
-    "staticImports" : "import io.realm.*;\nimport io.realm.annotations.*;\nimport java.util.Date;",
-    "modelDefinition": "\npublic class <!EntityName!> extends <!ParentName!>",
+    "package" : "package <!Package!>;",
+    "staticImports" : "\n\nimport io.realm.*;\nimport io.realm.annotations.*;\nimport java.util.Date;",
+    "modelDefinition": "\n\npublic class <!EntityName!> extends <!ParentName!>",
     "modelStart": "\n{\n",
     "modelEnd": "\n}",
     "attributeDefination": "<!Annotations!>\tprivate <!AttrType!> <!AttrName!>;\n",
