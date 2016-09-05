@@ -850,7 +850,15 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     func exportToAndroidJava(sender: AnyObject!)
     {
-        tryToExportWithLangName("Java")
+        showDialogToInputPackage(withTitle: "What is your packege name?",
+                                 information: "example: com.youcompanyname.youappname.model",
+                                 placeholder: "Input package name") { packageName in
+                                    for entity in self.entities {
+                                        entity.packageName = packageName
+                                    }
+
+                                    self.tryToExportWithLangName("Java")
+        }
     }
     
     func exportToAndroidKotlin(sender: AnyObject!)
@@ -860,7 +868,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     func tryToExportWithLangName(langName: String)
     {
-        if validEntities(){
+        if validEntities() {
             let lang = langWithName(langName)
             let files = EntityFilesGenerator.instance.entitiesToFiles(entities, lang: lang)
             choosePathAndSaveFiles(files)
@@ -951,6 +959,29 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         shouldPresentNotification notification: NSUserNotification) -> Bool
     {
         return true
+    }
+
+    /**
+     Ask user to input package name
+     */
+
+    func showDialogToInputPackage(withTitle title: String, information: String, placeholder: String, completion: ((String?)->())? = nil) {
+
+        let alert = NSAlert()
+        alert.addButtonWithTitle("OK")      // 1st button
+        alert.addButtonWithTitle("Cancel")  // 2nd button
+        alert.messageText = title
+        alert.informativeText = information
+
+        let textfield = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        textfield.placeholderString = placeholder
+
+        alert.accessoryView = textfield
+        let response: NSModalResponse = alert.runModal()
+
+        if (response == NSAlertFirstButtonReturn) {
+            completion?(textfield.stringValue)
+        }
     }
     
 }
