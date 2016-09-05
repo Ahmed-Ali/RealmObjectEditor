@@ -42,7 +42,7 @@ extension String{
         var singular = self
         let length = self.characters.count
         if length > 3{
-            let range = Range(start: endIndex.advancedBy(-3), end: endIndex)
+            let range = endIndex.advancedBy(-3) ..< endIndex
             let lastThreeChars = self.substringWithRange(range)
             if lastThreeChars == "ies" {
                 singular = self.stringByReplacingOccurrencesOfString(lastThreeChars, withString: "y", options: [], range: range)
@@ -50,7 +50,7 @@ extension String{
             
         }
         if length > 2{
-            let range = Range(start: endIndex.advancedBy(-1), end: endIndex)
+            let range = endIndex.advancedBy(-1) ..< endIndex
             let lastChar = self.substringWithRange(range)
             if lastChar == "s" {
                 singular = self.stringByReplacingOccurrencesOfString(lastChar, withString: "", options: [], range: range)
@@ -65,7 +65,7 @@ extension String{
     - returns: the converted version
     */
     func lowercaseFirstChar() -> String{
-        let range = Range(start: startIndex, end: startIndex.advancedBy(1))
+        let range = startIndex ..< startIndex.advancedBy(1)
         let firstLowerChar = self.substringWithRange(range).lowercaseString
         
         return self.stringByReplacingCharactersInRange(range, withString: firstLowerChar)
@@ -77,7 +77,8 @@ extension String{
     - returns: the converted version
     */
     func uppercaseFirstChar() -> String{
-        let range = Range(start: startIndex, end: startIndex.advancedBy(1))
+        let range = startIndex ..<  startIndex.advancedBy(1)
+
         let firstUpperChar = self.substringWithRange(range).uppercaseString
         
         return self.stringByReplacingCharactersInRange(range, withString: firstUpperChar)
@@ -91,7 +92,7 @@ extension String{
     
     func lastCharacter() -> String
     {
-        let range = Range(start: startIndex, end: startIndex.advancedBy(1))
+        let range = startIndex ..< startIndex.advancedBy(1)
         return self.substringWithRange(range)
     }
     
