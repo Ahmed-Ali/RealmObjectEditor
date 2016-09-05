@@ -41,6 +41,10 @@ To Do
 
 History log:
 ========================
+* Version 0.0.6
+	- Merged pull requests #19
+	- Removed depraced "Range" calls for strings
+	
 * Version 0.0.5
 	- Fixed issue #15
 	- Merged pull requests #12, #13 and #14
