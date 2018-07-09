@@ -8,23 +8,11 @@
 
 import Foundation
 class EntityFilesGenerator {
-    /**
-    Lazely load and return the singleton instance of the EntityGenerator
-    */
     
-    class var instance : EntityFilesGenerator {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : EntityFilesGenerator? = nil
-        }
-        dispatch_once(&Static.onceToken) {
-            Static.instance = EntityFilesGenerator()
-        }
-        return Static.instance!
-    }
+
+    static let instance = EntityFilesGenerator()
     
-    
-    func entitiesToFiles(entities: [EntityDescriptor], lang: LangModel) -> [FileModel]
+    func entitiesToFiles(_ entities: [EntityDescriptor], lang: LangModel) -> [FileModel]
     {
         var files = [FileModel]()
         for entity in entities{
@@ -46,13 +34,13 @@ class EntityFilesGenerator {
     }
     
     
-    func fileContentForEntity(entity: EntityDescriptor, lang: LangModel) -> String
+    func fileContentForEntity(_ entity: EntityDescriptor, lang: LangModel) -> String
     {
         
         return FileContentGenerator(entity: entity, lang: lang).getFileContent()
     }
     
-    func headerFileContentForEntity(entity: EntityDescriptor, lang: LangModel) -> String
+    func headerFileContentForEntity(_ entity: EntityDescriptor, lang: LangModel) -> String
     {
         return ""
     }

@@ -10,22 +10,22 @@ import Cocoa
 
 protocol ExtendedTableViewDelegate : class
 {
-    func tableView(tableView: ClickableTableView, didClickOnRow row: Int)
+    func tableView(_ tableView: ClickableTableView, didClickOnRow row: Int)
 }
 
 class ClickableTableView: NSTableView {
     
     weak var extendedDelegate : ExtendedTableViewDelegate!
-    private var prevSelectedRow = -1
-    override func mouseDown(theEvent: NSEvent) {
+    fileprivate var prevSelectedRow = -1
+    override func mouseDown(with theEvent: NSEvent) {
         
         let globalLocation = theEvent.locationInWindow
-        let localLocation = convertPoint(globalLocation, fromView: nil)
-        let clickedRow = rowAtPoint(localLocation)
+        let localLocation = convert(globalLocation, from: nil)
+        let clickedRow = row(at: localLocation)
 //        super.mouseDown(theEvent)
         prevSelectedRow = selectedRow
         if clickedRow > -1{
-            selectRowIndexes(NSIndexSet(index: clickedRow), byExtendingSelection: false)
+            selectRowIndexes(IndexSet(integer: clickedRow), byExtendingSelection: false)
             extendedDelegate?.tableView(self, didClickOnRow: clickedRow)
         }
         
@@ -33,11 +33,11 @@ class ClickableTableView: NSTableView {
     }
     
 
-    override func keyDown(theEvent: NSEvent) {
+    override func keyDown(with theEvent: NSEvent) {
         //36 enter button is down
         //53 is the esc button
         if selectedRow > -1{
-            if let cell = viewAtColumn(0, row: selectedRow, makeIfNecessary: false) as? ClickableCell{
+            if let cell = view(atColumn: 0, row: selectedRow, makeIfNecessary: false) as? ClickableCell{
                 if theEvent.keyCode == 36{
                     cell.beginEditing()
                 }else if theEvent.keyCode == 53{
@@ -47,20 +47,20 @@ class ClickableTableView: NSTableView {
         }
         
     }
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
         let globalLocation = theEvent.locationInWindow
-        let localLocation = convertPoint(globalLocation, fromView: nil)
-        let clickedRow = rowAtPoint(localLocation)
+        let localLocation = convert(globalLocation, from: nil)
+        let clickedRow = row(at: localLocation)
         
         if clickedRow == prevSelectedRow && clickedRow > -1{
-            if let cell = viewAtColumn(0, row: clickedRow, makeIfNecessary: false) as? ClickableCell{
+            if let cell = view(atColumn: 0, row: clickedRow, makeIfNecessary: false) as? ClickableCell{
                 //forward the touch event...
-                cell.mouseUp(theEvent)
+                cell.mouseUp(with: theEvent)
             }
         }else{
             //ask previous cell to stop editing
             if prevSelectedRow > -1{
-                if let cell = viewAtColumn(0, row: prevSelectedRow, makeIfNecessary: false) as? ClickableCell{
+                if let cell = view(atColumn: 0, row: prevSelectedRow, makeIfNecessary: false) as? ClickableCell{
                     cell.endEditing()
                 }
                 prevSelectedRow = clickedRow
@@ -68,6 +68,6 @@ class ClickableTableView: NSTableView {
             
         }
         
-        super.mouseUp(theEvent)
+        super.mouseUp(with: theEvent)
     }
 }

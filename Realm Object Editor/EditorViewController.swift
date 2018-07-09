@@ -88,12 +88,12 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        noSelectionContainer.hidden = false
+        noSelectionContainer.isHidden = false
         entitiesTable.extendedDelegate = self
         attributesTable.extendedDelegate = self
         relationshipsTable.extendedDelegate = self
         attributeTypesPopup.removeAllItems()
-        attributeTypesPopup.addItemsWithTitles(supportedTypesAsStringsArray())
+        attributeTypesPopup.addItems(withTitles: supportedTypesAsStringsArray())
         
     }
     
@@ -103,25 +103,25 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func selectedEntityDidChange()
     {
         for view in optionContainers {
-            view.hidden = true
+            view.isHidden = true
         }
         
         attributesTable.reloadData()
         relationshipsTable.reloadData()
         selectedAttribute = nil
         if selectedEntity == nil{
-            noSelectionContainer.hidden = false
+            noSelectionContainer.isHidden = false
             return
         }
         
         entityNameField.stringValue = selectedEntity.name
         entityParentClassField.stringValue = selectedEntity.superClassName
-        entityOptionsContainer.hidden = false
+        entityOptionsContainer.isHidden = false
         
     }
     
     
-    @IBAction func entityParentClassNameDidChange(sender: AnyObject)
+    @IBAction func entityParentClassNameDidChange(_ sender: AnyObject)
     {
         if selectedEntity == nil{
             return
@@ -129,13 +129,13 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         selectedEntity.superClassName = entityParentClassField.stringValue
     }
     
-    @IBAction func selectedEntityNameDidChange(sender: AnyObject)
+    @IBAction func selectedEntityNameDidChange(_ sender: AnyObject)
     {
         entityNameDidChange(selectedEntity, newName: entityNameField.stringValue)
         
     }
     
-    func entityNameAlreadyUsed(entityName : String) -> Bool
+    func entityNameAlreadyUsed(_ entityName : String) -> Bool
     {
         for entity in entities{
             if entity.name == entityName{
@@ -150,12 +150,12 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     
     //MARK: - EntityNameCellDelegate
-    func entityNameDidChange(entity: EntityDescriptor!, newName: String)
+    func entityNameDidChange(_ entity: EntityDescriptor!, newName: String)
     {
         if entity == nil{
             return
         }
-        if newName.characters.count == 0{
+        if newName.count == 0{
             entityNameField.stringValue = entity.name
             showErrorMessage(NSLocalizedString("EMPTY_ENTITY_NAME", tableName: "ErrorMessages", value:"Entity name cannot be empty", comment: "Displayed when trying to remove entity name"))
             
@@ -180,8 +180,8 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
        
         let row = entitiesTable.selectedRow
         if row > -1{
-            let indexSet = NSIndexSet(index: row)
-            entitiesTable.reloadDataForRowIndexes(indexSet, columnIndexes: NSIndexSet(indexesInRange: NSMakeRange(0, 1)))
+            let indexSet = IndexSet(integer: row)
+            entitiesTable.reloadData(forRowIndexes: indexSet, columnIndexes: IndexSet(integersIn: 0...0))
             entitiesTable.selectRowIndexes(indexSet, byExtendingSelection: false)
         }
     }
@@ -191,23 +191,23 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     {
         if selectedRelationship != nil{
             for view in optionContainers {
-                view.hidden = true
+                view.isHidden = true
             }
             
-            relationshipOptionsContainer.hidden = false
+            relationshipOptionsContainer.isHidden = false
             //Fill option with the selected relationship data
             populateRelationshipUI()
         }
     }
     
-    @IBAction func selectedRelationshipNameDidChange(sender: AnyObject)
+    @IBAction func selectedRelationshipNameDidChange(_ sender: AnyObject)
     {
         let newName = relationshipNameField.stringValue
         relationshipNameDidChange(selectedRelationship, newName: newName)
     }
     
     
-    @IBAction func selectedRelationshipDestinationDidChange(sender: AnyObject)
+    @IBAction func selectedRelationshipDestinationDidChange(_ sender: AnyObject)
     {
         if selectedRelationship == nil{
             return
@@ -219,12 +219,12 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     
-    @IBAction func selectedRelationshipToManyStateDidChange(sender: AnyObject)
+    @IBAction func selectedRelationshipToManyStateDidChange(_ sender: AnyObject)
     {
         if selectedRelationship == nil{
             return
         }
-        selectedRelationship.toMany = relationshipToManyCheckbox.state == NSOnState
+        selectedRelationship.toMany = relationshipToManyCheckbox.state == NSControl.StateValue.on
         populateRelationshipUI()
         
     }
@@ -235,31 +235,31 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             return
         }
         relationshipDestinationPopup.removeAllItems()
-        relationshipDestinationPopup.addItemWithTitle("No Value")
-        relationshipDestinationPopup.addItemsWithTitles(entities.map({ (e) -> String in
+        relationshipDestinationPopup.addItem(withTitle: "No Value")
+        relationshipDestinationPopup.addItems(withTitles: entities.map({ (e) -> String in
             e.name
         }))
         
         if selectedRelationship == nil{
             return
         }
-        relationshipToManyCheckbox.state = selectedRelationship.toMany ? NSOnState : NSOffState
+        relationshipToManyCheckbox.state = selectedRelationship.toMany ? NSControl.StateValue.on : NSControl.StateValue.off
         relationshipNameField.stringValue = selectedRelationship.name
         if selectedRelationship.destinationName != nil{
-            relationshipDestinationPopup.selectItemWithTitle(selectedRelationship.destinationName)
+            relationshipDestinationPopup.selectItem(withTitle: selectedRelationship.destinationName)
         }else{
-            relationshipDestinationPopup.selectItemAtIndex(0)
+            relationshipDestinationPopup.selectItem(at: 0)
         }
         
         let row = relationshipsTable.selectedRow
         if row > -1{
-            let indexSet = NSIndexSet(index: row)
-            relationshipsTable.reloadDataForRowIndexes(indexSet, columnIndexes: NSIndexSet(indexesInRange: NSMakeRange(0, 2)))
+            let indexSet = IndexSet(integer: row)
+            relationshipsTable.reloadData(forRowIndexes: indexSet, columnIndexes: IndexSet(integersIn: 0...1))
             relationshipsTable.selectRowIndexes(indexSet, byExtendingSelection: false)
         }
     }
     
-    func relationshipNameAlreadyUsed(name: String) -> Bool
+    func relationshipNameAlreadyUsed(_ name: String) -> Bool
     {
         if selectedEntity == nil{
             return false
@@ -276,7 +276,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - RelationshipNameCellDelegate
-    func relationshipNameDidChange(relationship: RelationshipDescriptor!, newName: String)
+    func relationshipNameDidChange(_ relationship: RelationshipDescriptor!, newName: String)
     {
         if relationship != nil{
             
@@ -299,11 +299,11 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func selectedAttributeDidChange()
     {
         for view in optionContainers {
-            view.hidden = true
+            view.isHidden = true
         }
         
         if selectedAttribute != nil{
-            attributeOptionsContainer.hidden = false
+            attributeOptionsContainer.isHidden = false
             //Fill option with the selected attribute data
             populateAttributeUI()
             
@@ -316,22 +316,22 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             return
         }
         attributeNameField.stringValue = selectedAttribute.name
-        attributeIgnoredCheckbox.state = selectedAttribute.ignored ? NSOnState : NSOffState
-        attributePrimaryKeyCheckbox.state = selectedAttribute.isPrimaryKey ? NSOnState : NSOffState
-        attributeIndexedCheckbox.state = selectedAttribute.indexed ? NSOnState : NSOffState
-        attributeDefaultCheckbox.state = selectedAttribute.hasDefault ? NSOnState : NSOffState
+        attributeIgnoredCheckbox.state = selectedAttribute.ignored ? NSControl.StateValue.on : NSControl.StateValue.off
+        attributePrimaryKeyCheckbox.state = selectedAttribute.isPrimaryKey ? NSControl.StateValue.on : NSControl.StateValue.off
+        attributeIndexedCheckbox.state = selectedAttribute.indexed ? NSControl.StateValue.on : NSControl.StateValue.off
+        attributeDefaultCheckbox.state = selectedAttribute.hasDefault ? NSControl.StateValue.on : NSControl.StateValue.off
         if "\(selectedAttribute.type.defaultValue)" == "\(NoDefaultValue)"{
-            attributeDefaultValueField.enabled = false
+            attributeDefaultValueField.isEnabled = false
             attributeDefaultValueField.stringValue = ""
-            attributeDefaultCheckbox.state = NSOffState
-            attributeDefaultCheckbox.enabled = false
+            attributeDefaultCheckbox.state = NSControl.StateValue.off
+            attributeDefaultCheckbox.isEnabled = false
         }else{
             attributeDefaultValueField.stringValue = selectedAttribute.hasDefault ? "\(selectedAttribute.defaultValue)" : ""
-            attributeDefaultValueField.enabled = true
-            attributeDefaultCheckbox.enabled = true
+            attributeDefaultValueField.isEnabled = true
+            attributeDefaultCheckbox.isEnabled = true
         }
         
-        attributeTypesPopup.selectItemWithTitle(selectedAttribute.type.typeName)
+        attributeTypesPopup.selectItem(withTitle: selectedAttribute.type.typeName)
         
         
     }
@@ -339,17 +339,17 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     {
         let row = attributesTable.selectedRow
         if row > -1{
-            let indexSet = NSIndexSet(index: row)
-            attributesTable.reloadDataForRowIndexes(indexSet, columnIndexes: NSIndexSet(indexesInRange: NSMakeRange(0, 2)))
+            let indexSet = IndexSet(integer: row)
+            attributesTable.reloadData(forRowIndexes: indexSet, columnIndexes: IndexSet(integersIn: 0...1))
             attributesTable.selectRowIndexes(indexSet, byExtendingSelection: false)
         }
     }
-    @IBAction func attributeNameDidChange(sender: AnyObject)
+    @IBAction func attributeNameDidChange(_ sender: AnyObject)
     {
         attributeNameDidChange(selectedAttribute, newName: attributeNameField.stringValue)
     }
     
-    func attributeNameAlreadyUsed(attrName: String) -> Bool
+    func attributeNameAlreadyUsed(_ attrName: String) -> Bool
     {
         if selectedEntity == nil{
             return false
@@ -364,28 +364,28 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         
     }
     
-    @IBAction func attributeIgnoredStateDidChange(sender: AnyObject)
+    @IBAction func attributeIgnoredStateDidChange(_ sender: AnyObject)
     {
         if selectedAttribute == nil{
             return
         }
-        if (selectedAttribute.isPrimaryKey || selectedAttribute.indexed) && attributeIgnoredCheckbox.state == NSOnState{
-            attributeIgnoredCheckbox.state = NSOffState
+        if (selectedAttribute.isPrimaryKey || selectedAttribute.indexed) && attributeIgnoredCheckbox.state == NSControl.StateValue.on{
+            attributeIgnoredCheckbox.state = NSControl.StateValue.off
             showErrorMessage(NSLocalizedString("PRIMARYKEY_AND_INDEX_CAN_NOT_BE_IGNORED", tableName: "ErrorMessages", value:"Primary key and indexed attributes can not be marked as ignored", comment: "Displayed when attempting to set a primary key or an indexed attribute as ignored"))
             
            
             return
         }
-        selectedAttribute.ignored = attributeIgnoredCheckbox.state == NSOnState
+        selectedAttribute.ignored = attributeIgnoredCheckbox.state == NSControl.StateValue.on
         
     }
     
-    @IBAction func attributePrimaryKeyStateDidChange(sender: AnyObject)
+    @IBAction func attributePrimaryKeyStateDidChange(_ sender: AnyObject)
     {
         if selectedAttribute == nil{
             return
         }
-        if attributePrimaryKeyCheckbox.state == NSOffState{
+        if attributePrimaryKeyCheckbox.state == NSControl.StateValue.off{
             selectedAttribute.isPrimaryKey = false
             return
         }
@@ -397,12 +397,12 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             
             showErrorMessage(errorMessage)
             
-            attributePrimaryKeyCheckbox.state = NSOffState
+            attributePrimaryKeyCheckbox.state = NSControl.StateValue.off
         }
         //otherwise make sure we can only have one primary key
         for attribute in selectedEntity.attributes{
             if attribute.isPrimaryKey{
-                attributePrimaryKeyCheckbox.state = NSOffState
+                attributePrimaryKeyCheckbox.state = NSControl.StateValue.off
                 let errorMessage = String(format:NSLocalizedString("TRYING_TO_SET_MULTI_PRIMARY_KEYS", tableName: "ErrorMessages", value:"You already set %@ as the primary key for this entity. You can have only one primary key per entity", comment:"Displayed when trying to set more than one primary key for the same entity."), attribute.name)
                 
                 
@@ -415,46 +415,46 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         selectedAttribute.isPrimaryKey = true
         if selectedAttribute.ignored{
             selectedAttribute.ignored = false
-            attributeIgnoredCheckbox.state = NSOffState
+            attributeIgnoredCheckbox.state = NSControl.StateValue.off
         }
     }
     
     
-    @IBAction func attributeIndexedStateDidChange(sender: AnyObject)
+    @IBAction func attributeIndexedStateDidChange(_ sender: AnyObject)
     {
         if selectedAttribute == nil{
             return
         }
-        if selectedAttribute.ignored && attributeIndexedCheckbox.state == NSOnState{
-            attributeIndexedCheckbox.state = NSOffState
+        if selectedAttribute.ignored && attributeIndexedCheckbox.state == NSControl.StateValue.on{
+            attributeIndexedCheckbox.state = NSControl.StateValue.off
             showErrorMessage(NSLocalizedString("IGNORE_INDEXED_ATTR", tableName: "ErrorMessages", value:"Ignored attributes can not be indexed.", comment:"Displayed when user attempt to set ignored attribute as an indexed attribute"))
             
            
             return
         }
-        selectedAttribute.indexed = attributeIndexedCheckbox.state == NSOnState
+        selectedAttribute.indexed = attributeIndexedCheckbox.state == NSControl.StateValue.on
     }
     
     
-    @IBAction func attributeDefaultValueDidChange(sender: AnyObject)
+    @IBAction func attributeDefaultValueDidChange(_ sender: AnyObject)
     {
         if selectedAttribute == nil{
             return
         }
         selectedAttribute.hasDefault = true
-        attributeDefaultCheckbox.state = NSOnState
+        attributeDefaultCheckbox.state = NSControl.StateValue.on
         selectedAttribute.defaultValue = attributeDefaultValueField.stringValue
         
     }
     
     
-    @IBAction func attributeHasDefaultStateDidChange(sender: AnyObject)
+    @IBAction func attributeHasDefaultStateDidChange(_ sender: AnyObject)
     {
         if selectedAttribute == nil{
             return
         }
         
-        selectedAttribute.hasDefault = attributeDefaultCheckbox.state == NSOnState
+        selectedAttribute.hasDefault = attributeDefaultCheckbox.state == NSControl.StateValue.on
         if !selectedAttribute.hasDefault{
             attributeDefaultValueField.stringValue = ""
         }else{
@@ -462,7 +462,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         }
     }
     
-    @IBAction func attributeTypeDidChange(sender: AnyObject)
+    @IBAction func attributeTypeDidChange(_ sender: AnyObject)
     {
         if selectedAttribute == nil{
             return
@@ -472,13 +472,13 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - AttributeNameCellDelegate
-    func attributeNameDidChange(attribute: AttributeDescriptor!, newName: String)
+    func attributeNameDidChange(_ attribute: AttributeDescriptor!, newName: String)
     {
         if attribute == nil{
             return
         }
 
-        if newName.characters.count == 0{
+        if newName.count == 0{
             showErrorMessage(NSLocalizedString("EMPTY_ATTR_NAME", tableName: "ErrorMessages", value:"Attribute name can not be empty", comment:"Displayed when user tries to remove an attribute name"))
             
             return
@@ -501,7 +501,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - Actions
-    @IBAction func addEntity(sender: AnyObject)
+    @IBAction func addEntity(_ sender: AnyObject)
     {
         var entityName = "Entity"
         if entities.count > 0{
@@ -522,7 +522,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     
-    @IBAction func removeSelectedEntity(sender: AnyObject)
+    @IBAction func removeSelectedEntity(_ sender: AnyObject)
     {
         let row = entitiesTable.selectedRow
         if row < 0{
@@ -530,7 +530,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             return
         }
         selectedEntity = nil
-        let removedEntityName = entities.removeAtIndex(row).name
+        let removedEntityName = entities.remove(at: row).name
         entitiesTable.reloadData()
         //remove any related relations
         for entity in entities{
@@ -538,7 +538,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             for i in 0 ..< relationships.count{
                 let relationship = relationships[i]
                 if relationship.destinationName == removedEntityName{
-                    entity.relationships.removeAtIndex(i)
+                    entity.relationships.remove(at: i)
                 }
             }
         }
@@ -546,7 +546,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     
-    @IBAction func addAttribute(sender: AnyObject)
+    @IBAction func addAttribute(_ sender: AnyObject)
     {
         if selectedEntity == nil{
             return
@@ -571,7 +571,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     
-    @IBAction func removeSelectedAttribute(sender: AnyObject)
+    @IBAction func removeSelectedAttribute(_ sender: AnyObject)
     {
         if selectedEntity == nil{
             return
@@ -581,12 +581,12 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             return
         }
         selectedAttribute = nil
-        selectedEntity.attributes.removeAtIndex(row)
+        selectedEntity.attributes.remove(at: row)
         attributesTable.reloadData()
     }
     
     
-    @IBAction func addRelationship(sender: AnyObject)
+    @IBAction func addRelationship(_ sender: AnyObject)
     {
         if selectedEntity == nil{
             return
@@ -609,7 +609,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     
-    @IBAction func removeSelectedRelationship(sender: AnyObject)
+    @IBAction func removeSelectedRelationship(_ sender: AnyObject)
     {
         if selectedEntity == nil{
             return
@@ -618,11 +618,11 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         if row < 0{
             return
         }
-        selectedEntity.relationships.removeAtIndex(row)
+        selectedEntity.relationships.remove(at: row)
         relationshipsTable.reloadData()
     }
     
-    @IBAction func toggleRelationsListContainer(sender: NSButton)
+    @IBAction func toggleRelationsListContainer(_ sender: NSButton)
     {
         let animator = relationsListHeightConstraint.animator()
         if animator.constant == relationsListContainer.bottomSeperatorWidth{
@@ -638,7 +638,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     
     //MARK: - Show/hide contents
-    @IBAction func toggleAttributesListContainer(sender: NSButton)
+    @IBAction func toggleAttributesListContainer(_ sender: NSButton)
     {
         let animator = attributesListHeightConstraint.animator()
         
@@ -654,32 +654,32 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - Entity cells handling
-    func entityCellAtRow(row: Int) -> NSView
+    func entityCellAtRow(_ row: Int) -> NSView
     {
-        let cell = entitiesTable.makeViewWithIdentifier("entityCell", owner: self) as! EntityCell
+        let cell = entitiesTable.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "entityCell"), owner: self) as! EntityCell
         cell.entity = entities[row]
         cell.delegate = self
         return cell
     }
     
     //MARK: - Attribute cells handling
-    func cellForAttributeAtRow(row: Int, column: NSTableColumn?) -> NSView
+    func cellForAttributeAtRow(_ row: Int, column: NSTableColumn?) -> NSView
     {
         let attribute = selectedEntity.attributes[row]
-        if column?.identifier == "name"{
-            let cell = attributesTable.makeViewWithIdentifier("name", owner: self) as! AttributeNameCell
+        if (column?.identifier)!.rawValue == "name"{
+            let cell = attributesTable.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "name"), owner: self) as! AttributeNameCell
             cell.attribute = attribute
             cell.delegate = self
             return cell
         }else{
-            let cell = attributesTable.makeViewWithIdentifier("type", owner: self) as! AttributeTypeCell
+            let cell = attributesTable.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "type"), owner: self) as! AttributeTypeCell
             cell.attribute = attribute
             cell.delegate = self
             return cell
         }
     }
     //MARK: - AttributeTypeCellDelegate
-    func attributeTypeDidChange(attribute attribute: AttributeDescriptor)
+    func attributeTypeDidChange(attribute: AttributeDescriptor)
     {
         attributesTable.reloadData()
         populateAttributeUI()
@@ -688,16 +688,16 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     
     //MARK: - Relationship cells handling
-    func cellForRelationshipAtRow(row: Int, column: NSTableColumn?) -> NSView
+    func cellForRelationshipAtRow(_ row: Int, column: NSTableColumn?) -> NSView
     {
         let relationship = selectedEntity.relationships[row]
-        if column?.identifier == "name"{
-            let cell = relationshipsTable.makeViewWithIdentifier("name", owner: self) as! RelationshipNameCell
+        if (column?.identifier)!.rawValue == "name"{
+            let cell = relationshipsTable.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "name"), owner: self) as! RelationshipNameCell
             cell.relationship = relationship
             cell.delegate = self
             return cell
         }else{
-            let cell = relationshipsTable.makeViewWithIdentifier("destination", owner: self) as! RelationshipDestinationCell
+            let cell = relationshipsTable.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "destination"), owner: self) as! RelationshipDestinationCell
             cell.allEntities = entities
             cell.relationship = relationship
             cell.delegate = self
@@ -706,14 +706,14 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - RelationshipDestinationCellDelegate
-    func relationshipDestinationDidChange(cell: RelationshipDestinationCell, relationship: RelationshipDescriptor)
+    func relationshipDestinationDidChange(_ cell: RelationshipDestinationCell, relationship: RelationshipDescriptor)
     {
         relationshipsTable.reloadData()
         populateRelationshipUI()
     }
     
     //MARK: - NSTableViewDataSource
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int
+    func numberOfRows(in tableView: NSTableView) -> Int
     {
         if tableView == entitiesTable{
             return entities.count
@@ -732,7 +732,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     
     //MARK: - NSTableViewDelegate
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView?
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView?
     {
         if tableView == entitiesTable{
             return entityCellAtRow(row)
@@ -748,14 +748,14 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     
     
-    func tableView(tableView: NSTableView, nextTypeSelectMatchFromRow startRow: Int, toRow endRow: Int, forString searchString: String) -> Int
+    func tableView(_ tableView: NSTableView, nextTypeSelectMatchFromRow startRow: Int, toRow endRow: Int, for searchString: String) -> Int
     {
         if tableView != entitiesTable{
             return -1
         }
         for i in startRow ..< entities.count{
             let entity = entities[i]
-            if entity.name.lowercaseString.hasPrefix(searchString){
+            if entity.name.lowercased().hasPrefix(searchString){
                 selectedEntity = entity
                 
                 return i
@@ -766,7 +766,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         return -1
     }
     
-    func tableView(tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+    func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         
         if tableView == entitiesTable{
             selectedEntity = entities[row]
@@ -779,7 +779,7 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - ExtendedTableViewDelegate
-    func tableView(tableView: ClickableTableView, didClickOnRow row: Int)
+    func tableView(_ tableView: ClickableTableView, didClickOnRow row: Int)
     {
         if tableView == entitiesTable{
             selectedEntity = entities[row]
@@ -792,11 +792,11 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     
     //MARK: - Messages
-    func showError(error: NSError)
+    func showError(_ error: NSError)
     {
         NSAlert(error: error).runModal()
     }
-    func showErrorMessage(message: String)
+    func showErrorMessage(_ message: String)
     {
         let alert = NSAlert()
         
@@ -838,17 +838,17 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     }
     
     //MARK: - Export
-    func exportToSwift(sender: AnyObject!)
+    @IBAction func exportToSwift(_ sender: AnyObject!)
     {
         tryToExportWithLangName("Swift")
     }
     
-    func exportToObjectiveC(sender: AnyObject!)
+    @IBAction func exportToObjectiveC(_ sender: AnyObject!)
     {
         tryToExportWithLangName("ObjC")
     }
     
-    func exportToAndroidJava(sender: AnyObject!)
+    @IBAction func exportToAndroidJava(_ sender: AnyObject!)
     {
         showDialogToInputPackage(withTitle: "What is your packege name?",
                                  information: "example: com.youcompanyname.youappname.model",
@@ -861,12 +861,12 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         }
     }
     
-    func exportToAndroidKotlin(sender: AnyObject!)
+    @IBAction func exportToAndroidKotlin(_ sender: AnyObject!)
     {
         tryToExportWithLangName("Kotlin")
     }
     
-    func tryToExportWithLangName(langName: String)
+    func tryToExportWithLangName(_ langName: String)
     {
         if validEntities() {
             let lang = langWithName(langName)
@@ -875,19 +875,19 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         }
     }
     
-    func langWithName(langName: String) -> LangModel
+    func langWithName(_ langName: String) -> LangModel
     {
         //        let fileName = "\(langName).json"
-        let filePathUrl = NSBundle.mainBundle().URLForResource(langName, withExtension: "json")!
-        let data = NSData(contentsOfURL: filePathUrl)
-        let jsonObject = (try! NSJSONSerialization.JSONObjectWithData(data!, options: [])) as! NSDictionary
+        let filePathUrl = Bundle.main.url(forResource: langName, withExtension: "json")!
+        let data = try? Data(contentsOf: filePathUrl)
+        let jsonObject = (try! JSONSerialization.jsonObject(with: data!, options: [])) as! NSDictionary
         let lang = LangModel(fromDictionary: jsonObject)
         return lang
     }
     
     
     //MARK: - Showing the open panel and save files
-    func choosePathAndSaveFiles(files: [FileModel])
+    func choosePathAndSaveFiles(_ files: [FileModel])
         {
             let openPanel = NSOpenPanel()
             openPanel.allowsOtherFileTypes = false
@@ -896,14 +896,11 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
             openPanel.canChooseDirectories = true
             openPanel.canCreateDirectories = true
             openPanel.prompt = "Choose"
-            openPanel.beginSheetModalForWindow(view.window!, completionHandler: { (button : Int) -> Void in
-                if button == NSFileHandlingPanelOKButton{
-    
-                    self.saveFiles(files, toPath:openPanel.URL!.path!)
-    
-                    
+            openPanel.beginSheetModal(for: view.window!) { (response) in
+                if response == NSApplication.ModalResponse.OK {
+                    self.saveFiles(files, toPath:openPanel.url!.path)
                 }
-            })
+            }
         }
     
     
@@ -912,16 +909,16 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     
     - parameter path: in which to save the files
     */
-    func saveFiles(files:[FileModel], toPath path: String)
+    func saveFiles(_ files:[FileModel], toPath path: String)
     {
         var error : NSError?
         
         for file in files{
             
-            let filePath = "\(path)/\(file.fileName).\(file.fileExtension)"
+            let filePath = "\(path)/\(file.fileName!).\(file.fileExtension!)"
             
             do {
-                try file.fileContent.writeToFile(filePath, atomically: false, encoding: NSUTF8StringEncoding)
+                try file.fileContent.write(toFile: filePath, atomically: false, encoding: String.Encoding.utf8)
             } catch let error1 as NSError {
                 error = error1
             }
@@ -947,16 +944,16 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         let notification = NSUserNotification()
         notification.title = "Success!"
         notification.informativeText = "Your Realm files have been generated successfully."
-        notification.deliveryDate = NSDate()
+        notification.deliveryDate = Date()
         
-        let center = NSUserNotificationCenter.defaultUserNotificationCenter()
+        let center = NSUserNotificationCenter.default
         center.delegate = self
-        center.deliverNotification(notification)
+        center.deliver(notification)
     }
     
     //MARK: - NSUserNotificationCenterDelegate
-    func userNotificationCenter(center: NSUserNotificationCenter,
-        shouldPresentNotification notification: NSUserNotification) -> Bool
+    func userNotificationCenter(_ center: NSUserNotificationCenter,
+        shouldPresent notification: NSUserNotification) -> Bool
     {
         return true
     }
@@ -968,8 +965,8 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
     func showDialogToInputPackage(withTitle title: String, information: String, placeholder: String, completion: ((String?)->())? = nil) {
 
         let alert = NSAlert()
-        alert.addButtonWithTitle("OK")      // 1st button
-        alert.addButtonWithTitle("Cancel")  // 2nd button
+        alert.addButton(withTitle: "OK")      // 1st button
+        alert.addButton(withTitle: "Cancel")  // 2nd button
         alert.messageText = title
         alert.informativeText = information
 
@@ -977,9 +974,9 @@ class EditorViewController: NSViewController, NSTableViewDelegate, NSTableViewDa
         textfield.placeholderString = placeholder
 
         alert.accessoryView = textfield
-        let response: NSModalResponse = alert.runModal()
+        let response: NSApplication.ModalResponse = alert.runModal()
 
-        if (response == NSAlertFirstButtonReturn) {
+        if (response == NSApplication.ModalResponse.alertFirstButtonReturn) {
             completion?(textfield.stringValue)
         }
     }

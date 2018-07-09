@@ -9,7 +9,7 @@
 import Cocoa
 
 protocol EntityNameCellDelegate : class{
-    func entityNameDidChange(entity: EntityDescriptor!, newName: String)
+    func entityNameDidChange(_ entity: EntityDescriptor!, newName: String)
 }
 
 class EntityCell: ClickableCell{
@@ -27,7 +27,7 @@ class EntityCell: ClickableCell{
         }
     }
     
-    override func nameDidChange(newName: String)
+    override func nameDidChange(_ newName: String)
     {
         super.nameDidChange(newName)
         delegate?.entityNameDidChange(entity, newName: newName)

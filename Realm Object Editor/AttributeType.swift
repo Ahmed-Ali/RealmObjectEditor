@@ -39,7 +39,7 @@ let arrayOfSupportedTypes : [TypeDescriptor] = [InvalidType(),
     BinaryDataType(),
     BoolType()]
 
-func indexOfType(type : TypeDescriptor) -> Int?
+func indexOfType(_ type : TypeDescriptor) -> Int?
 {
     for i in 0 ..< arrayOfSupportedTypes.count{
         let t = arrayOfSupportedTypes[i]
@@ -61,7 +61,7 @@ func supportedTypesAsStringsArray() -> [String]
     return typesAsStrings
 }
 
-func findTypeByTypeName(typeName: String) -> TypeDescriptor?
+func findTypeByTypeName(_ typeName: String) -> TypeDescriptor?
 {
     for type in arrayOfSupportedTypes{
         if type.typeName == typeName{

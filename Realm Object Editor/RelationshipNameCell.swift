@@ -8,7 +8,7 @@
 
 import Cocoa
 protocol RelationshipNameCellDelegate : class{
-    func relationshipNameDidChange(relationship: RelationshipDescriptor!, newName: String)
+    func relationshipNameDidChange(_ relationship: RelationshipDescriptor!, newName: String)
 }
 class RelationshipNameCell: ClickableCell {
 
@@ -27,7 +27,7 @@ class RelationshipNameCell: ClickableCell {
         }
     }
     
-    override func nameDidChange(newName: String)
+    override func nameDidChange(_ newName: String)
     {
         super.nameDidChange(newName)
         delegate?.relationshipNameDidChange(relationship, newName: newName)

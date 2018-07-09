@@ -8,7 +8,7 @@
 
 import Cocoa
 protocol AttributeNameCellDelegate : class{
-    func attributeNameDidChange(attribute: AttributeDescriptor!, newName: String)
+    func attributeNameDidChange(_ attribute: AttributeDescriptor!, newName: String)
 }
 class AttributeNameCell: ClickableCell {
 
@@ -30,7 +30,7 @@ class AttributeNameCell: ClickableCell {
     }
     
     
-    override func nameDidChange(newName: String)
+    override func nameDidChange(_ newName: String)
     {
         super.nameDidChange(newName)
         delegate?.attributeNameDidChange(attribute, newName: newName)
