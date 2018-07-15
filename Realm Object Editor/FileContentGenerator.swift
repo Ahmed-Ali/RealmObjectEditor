@@ -31,7 +31,7 @@ class FileContentGenerator {
         content += lang.modelDefinition
         content += lang.modelStart
         content.replace(EntityName, by: entity.name)
-        if entity.superClassName.characters.count == 0{
+        if entity.superClassName.count == 0{
             content.replace(ParentName, by: lang.defaultSuperClass)
         }else{
             content.replace(ParentName, by: entity.superClassName)
@@ -58,7 +58,7 @@ class FileContentGenerator {
     }
     
     //MARK: - Setter and Getters
-    func appendGettersAndSetters(getter: String, setter: String)
+    func appendGettersAndSetters(_ getter: String, setter: String)
     {
         let types = lang.dataTypes.toDictionary()
         for attr in entity.attributes{
@@ -69,16 +69,16 @@ class FileContentGenerator {
         for relationship in entity.relationships{
             var type = relationship.destinationName
             if relationship.toMany && lang.toManyRelationType != nil{
-                var relationshipType = lang.toManyRelationType
-                relationshipType.replace(RelationshipType, by: type)
+                var relationshipType: String = lang.toManyRelationType
+                relationshipType.replace(RelationshipType, by: type!)
                 type = relationshipType
             }
-            appendDefination(getter, attrName: relationship.name, attrType: type)
-            appendDefination(setter, attrName: relationship.name, attrType: type)
+            appendDefination(getter, attrName: relationship.name, attrType: type!)
+            appendDefination(setter, attrName: relationship.name, attrType: type!)
         }
     }
     
-    func appendDefination(defination: String, attrName: String, attrType: String)
+    func appendDefination(_ defination: String, attrName: String, attrType: String)
     {
         var def = defination
         def.replace(AttrName, by: attrName)
@@ -88,7 +88,7 @@ class FileContentGenerator {
     }
     
     //MARK: - Ignored properties
-    func appendIgnoredProperties(ignoredPropertiesDef: String, forEachIgnoredProperty: String)
+    func appendIgnoredProperties(_ ignoredPropertiesDef: String, forEachIgnoredProperty: String)
     {
         let types = lang.dataTypes.toDictionary()
         var ignoredAttrs = ""
@@ -101,7 +101,7 @@ class FileContentGenerator {
             }
         }
         
-        if ignoredAttrs.characters.count > 0{
+        if ignoredAttrs.count > 0{
             var ignoredAttrDef = ignoredPropertiesDef
             ignoredAttrDef.replace(IgnoredAttributes, by: ignoredAttrs)
             content += ignoredAttrDef
@@ -109,7 +109,7 @@ class FileContentGenerator {
     }
     
     //MARK: - Primary Key
-    func appendPrimaryKey(primaryKeyDef: String)
+    func appendPrimaryKey(_ primaryKeyDef: String)
     {
         let types = lang.dataTypes.toDictionary()
         for attr in entity.attributes{
@@ -125,7 +125,7 @@ class FileContentGenerator {
     
     
     //MARK: - Index Attributes
-    func appendIndexedAttributes(indexAttributesDefination: String, forEachIndexedAttribute: String)
+    func appendIndexedAttributes(_ indexAttributesDefination: String, forEachIndexedAttribute: String)
     {
         let types = lang.dataTypes.toDictionary()
         var indexedAttrs = ""
@@ -138,7 +138,7 @@ class FileContentGenerator {
             }
         }
         
-        if indexedAttrs.characters.count > 0{
+        if indexedAttrs.count > 0{
             var indexedAttrDef = indexAttributesDefination
             indexedAttrDef.replace(IndexedAttributes, by: indexedAttrs)
             content += indexedAttrDef
@@ -148,7 +148,7 @@ class FileContentGenerator {
     //MARK: - Relationships
     func appendRelationships()
     {
-        for (index, relationship) in entity.relationships.enumerate(){
+        for (index, relationship) in entity.relationships.enumerated(){
             var relationshipDef = ""
             if relationship.toMany{
                 relationshipDef = lang.toManyRelationshipDefination
@@ -172,10 +172,10 @@ class FileContentGenerator {
     func appendAttributes()
     {
         let types = lang.dataTypes.toDictionary()
-        for (index, attr) in entity.attributes.enumerate(){
+        for (index, attr) in entity.attributes.enumerated(){
             
             var attrDefination = ""
-            if lang.attributeDefinationWithDefaultValue != nil && lang.attributeDefinationWithDefaultValue.characters.count > 0 && attr.hasDefault{
+            if lang.attributeDefinationWithDefaultValue != nil && lang.attributeDefinationWithDefaultValue.count > 0 && attr.hasDefault{
                 attrDefination = lang.attributeDefinationWithDefaultValue
                 
                 let defValue = defaultValueForAttribute(attr, types: types)
@@ -220,13 +220,13 @@ class FileContentGenerator {
         }
     }
     
-    func getSeperator(index: Int, total: Int) -> String
+    func getSeperator(_ index: Int, total: Int) -> String
     {
         return (index < total - 1) ? "," : ""
     }
     
     
-    func defaultValueForAttribute(attribute: AttributeDescriptor, types: [String : String]) -> String
+    func defaultValueForAttribute(_ attribute: AttributeDescriptor, types: [String : String]) -> String
     {
         var defValue = attribute.defaultValue
         if defValue == NoDefaultValue{
@@ -258,7 +258,7 @@ class FileContentGenerator {
     {
         if lang.relationsipImports != nil{
             for r in entity.relationships{
-                var relationshipImport = lang.relationsipImports
+                var relationshipImport: String = lang.relationsipImports
                 relationshipImport.replace(RelationshipType, by: r.destinationName)
                 content += relationshipImport
             }
@@ -266,14 +266,14 @@ class FileContentGenerator {
     }
     
     //MARK: - Copyrights
-    func appendCopyrights(fileName: String, fileExtension: String)
+    func appendCopyrights(_ fileName: String, fileExtension: String)
     {
         content += "//\n//\t\(fileName).\(fileExtension)\n"
-        if let me = ABAddressBook.sharedAddressBook()?.me(){
+        if let me = ABAddressBook.shared()?.me(){
             
-            if let firstName = me.valueForProperty(kABFirstNameProperty as String) as? String{
+            if let firstName = me.value(forProperty: kABFirstNameProperty as String) as? String{
                 content += "//\n//\tCreate by \(firstName)"
-                if let lastName = me.valueForProperty(kABLastNameProperty as String) as? String{
+                if let lastName = me.value(forProperty: kABLastNameProperty as String) as? String{
                     content += " \(lastName)"
                 }
             }
@@ -281,7 +281,7 @@ class FileContentGenerator {
             
             content += " on \(getTodayFormattedDay())\n//\tCopyright © \(getYear())"
             
-            if let organization = me.valueForProperty(kABOrganizationProperty as String) as? String{
+            if let organization = me.value(forProperty: kABOrganizationProperty as String) as? String{
                 content += " \(organization)"
             }
             
@@ -305,7 +305,7 @@ class FileContentGenerator {
     */
     func getYear() -> String
     {
-        return "\(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()))"
+        return "\((Calendar.current as NSCalendar).component(.year, from: Date()))"
     }
     
     /**
@@ -313,7 +313,7 @@ class FileContentGenerator {
     */
     func getTodayFormattedDay() -> String
     {
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: NSDate())
-        return "\(components.day)/\(components.month)/\(components.year)"
+        let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: Date())
+        return "\(components.day!)/\(components.month!)/\(components.year!)"
     }
 }

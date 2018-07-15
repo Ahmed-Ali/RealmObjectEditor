@@ -8,7 +8,7 @@
 
 import Cocoa
 protocol RelationshipDestinationCellDelegate : class{
-    func relationshipDestinationDidChange(cell: RelationshipDestinationCell, relationship: RelationshipDescriptor)
+    func relationshipDestinationDidChange(_ cell: RelationshipDestinationCell, relationship: RelationshipDescriptor)
 }
 
 class RelationshipDestinationCell: NSTableCellView {
@@ -19,8 +19,8 @@ class RelationshipDestinationCell: NSTableCellView {
     var allEntities : [EntityDescriptor]!{
         didSet{
             destinationPopUpButton.removeAllItems()
-            destinationPopUpButton.addItemWithTitle("No Value")
-            destinationPopUpButton.addItemsWithTitles(allEntities.map{
+            destinationPopUpButton.addItem(withTitle: "No Value")
+            destinationPopUpButton.addItems(withTitles: allEntities.map{
                 (entity) -> String in
                 entity.name
                 })
@@ -29,9 +29,9 @@ class RelationshipDestinationCell: NSTableCellView {
     var relationship: RelationshipDescriptor!{
         didSet{
             if relationship.destinationName != nil{
-                destinationPopUpButton.selectItemWithTitle(relationship.destinationName)
+                destinationPopUpButton.selectItem(withTitle: relationship.destinationName)
             }else{
-                destinationPopUpButton.selectItemAtIndex(0)
+                destinationPopUpButton.selectItem(at: 0)
             }
             
         }
@@ -40,7 +40,7 @@ class RelationshipDestinationCell: NSTableCellView {
     
     
     
-    @IBAction func changeRelationDestination(sender: AnyObject)
+    @IBAction func changeRelationDestination(_ sender: AnyObject)
     {
         relationship.destinationName = destinationPopUpButton.titleOfSelectedItem
         delegate?.relationshipDestinationDidChange(self, relationship: relationship)

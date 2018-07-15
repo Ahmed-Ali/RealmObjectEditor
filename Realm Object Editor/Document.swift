@@ -18,19 +18,19 @@ class Document: NSDocument {
         // Add your subclass-specific initialization here.
     }
 
-    override func windowControllerDidLoadNib(aController: NSWindowController) {
+    override func windowControllerDidLoadNib(_ aController: NSWindowController) {
         super.windowControllerDidLoadNib(aController)
         // Add any code here that needs to be executed once the windowController has loaded the document's window.
     }
 
-    override class func autosavesInPlace() -> Bool {
+    override class var autosavesInPlace: Bool {
         return true
     }
 
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        windowController = storyboard.instantiateControllerWithIdentifier("Editor Window Controller") as! NSWindowController
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
+        windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Editor Window Controller")) as! NSWindowController
         if let v = windowController.contentViewController as? EditorViewController{
             vc = v
             vc.entities = entities
@@ -39,7 +39,7 @@ class Document: NSDocument {
     
     }
 
-    override func dataOfType(typeName: String) throws -> NSData {
+    override func data(ofType typeName: String) throws -> Data {
         var outError: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
     
         var arrayOfDictionaries = [NSDictionary]()
@@ -49,9 +49,9 @@ class Document: NSDocument {
             arrayOfDictionaries.append(entity.toDictionary())
         }
         
-        let data: NSData?
+        let data: Data?
         do {
-            data = try NSJSONSerialization.dataWithJSONObject(arrayOfDictionaries, options: [])
+            data = try JSONSerialization.data(withJSONObject: arrayOfDictionaries, options: [])
         } catch let error as NSError {
             outError = error
             data = nil
@@ -63,10 +63,10 @@ class Document: NSDocument {
         throw outError
     }
 
-    override func readFromData(data: NSData, ofType typeName: String) throws {
+    override func read(from data: Data, ofType typeName: String) throws {
         let outError: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
        
-        if let arrayOfDictionaries = try! NSJSONSerialization.JSONObjectWithData(data, options: []) as? [NSDictionary]{
+        if let arrayOfDictionaries = try! JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary]{
             
             for dictionary in arrayOfDictionaries{
                 entities.append(EntityDescriptor(dictionary: dictionary))

@@ -19,12 +19,12 @@ class ClickableCell: NSTableCellView, NSTextFieldDelegate{
     var allowsEmptyValue = false
     var prevName : String = ""
     
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
         if editableLabel == nil{
             return
         }
         let globalLocation = theEvent.locationInWindow
-        let localLocation = convertPoint(globalLocation, fromView: nil)
+        let localLocation = convert(globalLocation, from: nil)
         
         if NSPointInRect(localLocation, editableLabel.frame){
             beginEditing()
@@ -37,39 +37,39 @@ class ClickableCell: NSTableCellView, NSTextFieldDelegate{
     func beginEditing()
     {
         prevName = editableLabel.stringValue
-        editableLabel.editable = true
+        editableLabel.isEditable = true
         window?.makeFirstResponder(editableLabel)
     }
     
     func endEditing()
     {
-        editableLabel.editable = false
+        editableLabel.isEditable = false
         window?.resignFirstResponder()
-        if prevName != editableLabel.stringValue && prevName.characters.count > 0{
+        if prevName != editableLabel.stringValue && prevName.count > 0{
             nameDidChange(editableLabel.stringValue)
         }
     }
     
-    func nameDidChange(newName: String)
+    func nameDidChange(_ newName: String)
     {
         
         prevName = editableLabel.stringValue
     }
     
     //MARK: - NSTextFieldDelegate
-    func control(control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool
+    func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool
     {
         return true
     }
     
     
-    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool
+    func control(_ control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool
     {
         if allowsEmptyValue{
             endEditing()
             return true
         }
-        if editableLabel.stringValue.characters.count == 0{
+        if editableLabel.stringValue.count == 0{
             showEmptyNameError()
             return false
         }
@@ -84,10 +84,10 @@ class ClickableCell: NSTableCellView, NSTextFieldDelegate{
     {
         let alert = NSAlert()
         alert.messageText = "Name must contain characters"
-        alert.addButtonWithTitle("Ok")
-        alert.addButtonWithTitle("Discard changes")
+        alert.addButton(withTitle: "Ok")
+        alert.addButton(withTitle: "Discard changes")
         let response = alert.runModal()
-        if response == NSAlertSecondButtonReturn{
+        if response == NSApplication.ModalResponse.alertSecondButtonReturn{
             //discard changes
             editableLabel.stringValue = prevName
             editableLabel.endEditing(NSText())

@@ -40,20 +40,20 @@ extension String{
     func toSingular() -> String
     {
         var singular = self
-        let length = self.characters.count
+        let length = self.count
         if length > 3{
-            let range = endIndex.advancedBy(-3) ..< endIndex
-            let lastThreeChars = self.substringWithRange(range)
+            let range = self.index(endIndex, offsetBy: -3) ..< endIndex
+            let lastThreeChars = self[range]
             if lastThreeChars == "ies" {
-                singular = self.stringByReplacingOccurrencesOfString(lastThreeChars, withString: "y", options: [], range: range)
+                singular = self.replacingOccurrences(of: lastThreeChars, with: "y", options: [], range: range)
             }
             
         }
         if length > 2{
-            let range = endIndex.advancedBy(-1) ..< endIndex
-            let lastChar = self.substringWithRange(range)
+            let range = self.index(endIndex, offsetBy: -1) ..< endIndex
+            let lastChar = self[range]
             if lastChar == "s" {
-                singular = self.stringByReplacingOccurrencesOfString(lastChar, withString: "", options: [], range: range)
+                singular = self.replacingOccurrences(of: lastChar, with: "", options: [], range: range)
             }
         }
         return singular
@@ -65,10 +65,9 @@ extension String{
     - returns: the converted version
     */
     func lowercaseFirstChar() -> String{
-        let range = startIndex ..< startIndex.advancedBy(1)
-        let firstLowerChar = self.substringWithRange(range).lowercaseString
-        
-        return self.stringByReplacingCharactersInRange(range, withString: firstLowerChar)
+        let range = startIndex ..< self.index(startIndex, offsetBy: 1)
+        let firstLowerChar = self[range].lowercased()
+        return self.replacingCharacters(in: range, with: firstLowerChar)
     }
     
     /**
@@ -77,28 +76,28 @@ extension String{
     - returns: the converted version
     */
     func uppercaseFirstChar() -> String{
-        let range = startIndex ..<  startIndex.advancedBy(1)
+        let range = startIndex ..<  self.index(startIndex, offsetBy: 1)
 
-        let firstUpperChar = self.substringWithRange(range).uppercaseString
+        let firstUpperChar = self[range].uppercased()
         
-        return self.stringByReplacingCharactersInRange(range, withString: firstUpperChar)
+        return self.replacingCharacters(in: range, with: firstUpperChar)
     }
 
     
     func getUppercaseOfFirstChar() -> String
     {
-        return lastCharacter().uppercaseString
+        return lastCharacter().uppercased()
     }
     
     func lastCharacter() -> String
     {
-        let range = startIndex ..< startIndex.advancedBy(1)
-        return self.substringWithRange(range)
+        let range = startIndex ..< self.index(startIndex, offsetBy: 1)
+        return String(self[range])
     }
     
     
-    mutating func replace(str: String, by replacement: String)
+    mutating func replace(_ str: String, by replacement: String)
     {
-        self = self.stringByReplacingOccurrencesOfString(str, withString: replacement)
+        self = self.replacingOccurrences(of: str, with: replacement)
     }
 }

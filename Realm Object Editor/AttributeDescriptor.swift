@@ -54,8 +54,8 @@ class AttributeDescriptor: NSObject {
             "hasDefault" : hasDefault,
             "defaultValue" : defaultValue,
             "typeName" : type.typeName
-        ]
+        ] as [String : Any]
         
-        return dictionary
+        return dictionary as NSDictionary
     }
 }
